@@ -78,7 +78,7 @@ private boolean emailCheck(String email){
 
 private boolean ssnCheck(String ssn){
 
-        String lengthregex = "^(\\w{9})$";
+        String lengthregex = "^(\\d{9})$";
 
         Pattern pat = Pattern.compile(lengthregex);
         if (ssn == null)
