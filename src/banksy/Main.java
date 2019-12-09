@@ -9,6 +9,13 @@ public class Main
 		String fileName = "Banksy.db";
 		SQLite_DBManager dbm = new SQLite_DBManager();
 		dbm.createNewDatabase(fileName);
-		dbm.createNewTable(fileName);
+		
+		String sql = "IF NOT EXISTS user (\n"
+                + "    user_id integer PRIMARY KEY,\n"
+                + "    name text NOT NULL,\n"
+                + "    user_ssn integer\n"
+                + ");";
+		dbm.createNewTable(fileName, sql);
+		dbm.showAllTables(fileName);
 	}
 }
