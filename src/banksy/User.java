@@ -3,6 +3,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.security.MessageDigest;
 import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
 
 public class User {
 
@@ -47,12 +48,19 @@ private boolean passwordCheck(String passwordCheck){
         return pat.matcher(passwordCheck).matches();
 }
 
-private byte[] hashit(String plaintext){
-  MessageDigest digest = MessageDigest.getInstance("SHA-256");
-  byte[] encodedhash = digest.digest(
-  plaintext.getBytes(StandardCharsets.UTF_8));
+private byte[] hashit(String plaintext) {
+        MessageDigest digest = null;
+        try {
+                digest = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+// TODO Auto-generated catch block
+                e.printStackTrace();
+        }
+        byte[] encodedhash = digest.digest(
+                plaintext.getBytes(StandardCharsets.UTF_8));
 
-  return encodedhash;
+        return encodedhash;
+
 }
 
 private boolean emailCheck(String email){
