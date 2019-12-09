@@ -7,6 +7,6 @@ public class Main
 	public static void main(String[] args) throws IOException 
 	{
 		SQLite_DBManager dbm = new SQLite_DBManager();
-		dbm.createNewDatabase("hi.db");
+		dbm.createNewDatabase("Banksy.db");
 	}
 }

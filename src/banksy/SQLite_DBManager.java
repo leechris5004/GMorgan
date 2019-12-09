@@ -26,14 +26,16 @@ public class SQLite_DBManager implements DBManager {
 		
 		Connection conn = null;
 		try {
-			String url = "jdbc:sqlite:"+dir+"\\"+fileName;
+			String url = "jdbc:sqlite:"+dir+"\\src\\banksy\\"+fileName;
 			conn = DriverManager.getConnection(url);
 			System.out.println("Connection to SQLite has been established");
+			System.out.println("Created the "+fileName+" DB at "+dir+"\\src\\banksy\\"+fileName);
 		} catch(SQLException e) {
 			System.out.println(e.getMessage());
 		} finally {
 			try 
 			{
+				System.out.println("Closing Database");
 				if(conn != null) {
 					conn.close();
 				}
