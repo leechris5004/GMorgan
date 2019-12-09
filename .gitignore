@@ -76,3 +76,7 @@ fabric.properties
 =======
 /bin/
 >>>>>>> 4b0a94530f5439646d0ab8aeccc5d4b9524291c0
+
+Banksy.db
+
+*.db
