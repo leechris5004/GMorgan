@@ -1,56 +1,60 @@
 package banksy;
 
-public class User{
+public class User {
 
-  public String firstName;
-  public String lastName;
+public String firstName;
+public String lastName;
 
 public boolean createUser(){
-  return false;
+        return false;
 }
 
 
 public boolean isAlpha(String input) {
-    if (input == null) return false;
-    for (char c : input.toCharArray()) {
-        if (!Character.isLetter(c)) {
-            return false;
+        if (input == null) return false;
+        for (char c : input.toCharArray()) {
+                if (!Character.isLetter(c)) {
+                        return false;
+                }
         }
-    }
-    return true;
+        return true;
 }
 private boolean nameCheck(String fname, String lname){
-  // Must be alphabetic, no numbers, no special characters
+        // Must be alphabetic, no numbers, no special characters
 
-if(isAlpha(fname)){
-  this.firstName = fname;
-}else{
-  return false;
-}
-if(isAlpha(lname)){
-  this.lastName = lname;
-}else{
-  return false;
-}
-  return true;
+        if(isAlpha(fname)) {
+                this.firstName = fname;
+        }else{
+                return false;
+        }
+        if(isAlpha(lname)) {
+                this.lastName = lname;
+        }else{
+                return false;
+        }
+        return true;
 }
 
 private boolean passwordCheck(){
-  //must contain a capital letter, must be at least eight characters, must contain a number
-  return false;
+        //must contain a capital letter, must be at least eight characters, must contain a number
+        return false;
 }
 
 private boolean emailCheck(){
-  // must contain an @
-  return false;
+        //regex that i found on google.
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                            "[a-zA-Z0-9_+&*-]+)*@" +
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                            "A-Z]{2,7}$";
+        return false;
 }
 
 private boolean ssnCheck(){
 
-  return false;
+        return false;
 }
 
 private boolean checksPassed(){
-  return false;
+        return false;
 }
 }
