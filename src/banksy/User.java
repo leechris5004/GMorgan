@@ -1,4 +1,6 @@
 package banksy;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class User {
 
@@ -11,14 +13,13 @@ public boolean createUser(){
 
 
 public boolean isAlpha(String input) {
-        if (input == null) return false;
-        for (char c : input.toCharArray()) {
-                if (!Character.isLetter(c)) {
-                        return false;
-                }
-        }
-        return true;
+        String alphaRegex = "/^[A-Za-z]+$/";
+        Pattern pat = Pattern.compile(alphaRegex);
+       if (input == null)
+           return false;
+       return pat.matcher(input).matches();
 }
+
 private boolean nameCheck(String fname, String lname){
         // Must be alphabetic, no numbers, no special characters
 
@@ -40,13 +41,17 @@ private boolean passwordCheck(){
         return false;
 }
 
-private boolean emailCheck(){
+private boolean emailCheck(String email){
         //regex that i found on google.
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
                             "[a-zA-Z0-9_+&*-]+)*@" +
                             "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
                             "A-Z]{2,7}$";
-        return false;
+
+                            Pattern pat = Pattern.compile(emailRegex);
+                           if (email == null)
+                               return false;
+                           return pat.matcher(email).matches();
 }
 
 private boolean ssnCheck(){
