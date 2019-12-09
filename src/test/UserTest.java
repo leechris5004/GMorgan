@@ -12,16 +12,12 @@ import banksy.User;
 
 
 class UserTest {
-
-	@Test
-	void test() {
-		fail("Not yet implemented");
-	}
 	
 	@Test
 	void checkIfAlpha() {
 		User test = new User("Dog","1234");
-		assertTrue(test.nameCheck(test.firstName,test.lastName));
+		assertFalse(test.isAlpha("1234"));
+		assertTrue(test.isAlpha("Dog"));
 		return;
 		
 	}
