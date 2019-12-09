@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException; 
 
 public class DBManager
+//merge conflicts
 {
 	public static void createNewDatabase(String fileName) 
 	{
