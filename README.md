@@ -1,3 +1,3 @@
 # GMorgan
 
-This is banking. Evolved.
+This is banking. dEvolved.
