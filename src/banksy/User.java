@@ -9,6 +9,8 @@ public class User {
 
 public String firstName;
 public String lastName;
+public String ssn;
+public String email;
 
 public boolean createUser(){
         return false;
