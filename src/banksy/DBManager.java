@@ -21,6 +21,7 @@ public class DBManager
 		}catch(SQLException e) 
 		{
 			System.out.println(e.getMessage());
+			//Hello
 		}
 	}
 }
