@@ -6,7 +6,9 @@ public class Main
 {
 	public static void main(String[] args) throws IOException 
 	{
+		String fileName = "Banksy.db";
 		SQLite_DBManager dbm = new SQLite_DBManager();
-		dbm.createNewDatabase("Banksy.db");
+		dbm.createNewDatabase(fileName);
+		dbm.createNewTable(fileName);
 	}
 }

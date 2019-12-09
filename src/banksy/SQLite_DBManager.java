@@ -1,9 +1,12 @@
 package banksy;
 
+//Just a Test
+import java.util.Scanner;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.io.File;
 
 public class SQLite_DBManager implements DBManager {
@@ -44,4 +47,23 @@ public class SQLite_DBManager implements DBManager {
 			}
 		}
 	}
+
+	public void createNewTable(String fileName) throws IOException 
+	{
+		System.out.println("Enter your sql command");
+		Scanner in = new Scanner(System.in);
+		String dir = System.getProperty("user.dir");
+		String url = "jdbc:sqlite:"+dir+"\\src\\banksy\\"+fileName;
+		String sql = in.nextLine();
+		
+		try(Connection conn = DriverManager.getConnection(url);
+				Statement stmt = conn.createStatement())
+		{
+			stmt.execute(sql);
+		} catch (SQLException e) {
+			System.out.println("Error occurred while executing sql statement");
+			System.out.println(e.getMessage());
+		}
+	}
+	
 }
