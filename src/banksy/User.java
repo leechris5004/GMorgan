@@ -24,4 +24,7 @@ private boolean ssnCheck(){
   return false;
 }
 
+private boolean checksPassed(){
+  return(createUser()&&nameCheck()&&passwordCheck()&&emailCheck()&&ssnCheck());
+}
 }
