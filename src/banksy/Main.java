@@ -1,9 +1,12 @@
 package banksy;
 
-public class Main {
+import java.io.IOException;
 
-	public static void main(String[] args) {
-		// TODO:
+public class Main 
+{
+	public static void main(String[] args) throws IOException 
+	{
+		SQLite_DBManager dbm = new SQLite_DBManager();
+		dbm.createNewDatabase("hi.db");
 	}
-
 }
