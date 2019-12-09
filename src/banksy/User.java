@@ -21,7 +21,7 @@ public class User {
 	}
 
 	public boolean isAlpha(String input) {//Simply checks if a given string is Alphabetical
-		String alphaRegex = "/^[A-Za-z]+$/";
+		String alphaRegex = "^[a-zA-Z]+$";
 		Pattern pat = Pattern.compile(alphaRegex);
 		if (input == null)
 			return false;
