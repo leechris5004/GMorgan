@@ -47,23 +47,53 @@ public class SQLite_DBManager implements DBManager {
 			}
 		}
 	}
-
-	public void createNewTable(String fileName) throws IOException 
+	
+//	public String generateSQL() 
+//	{
+//		System.out.println("Enter your sql command");
+//		Scanner in = new Scanner(System.in);
+//		StringBuffer sql = new StringBuffer();
+//		String str = " ";
+//		while(in.hasNextLine()&& !(str = in.nextLine()).equals(" "))
+//		{
+//			sql.append(str+"\n");
+//			System.out.println(sql);
+//		}
+//		sql.append(");");
+//		return sql.toString();
+//	}
+	
+	
+	public void createNewTable(String fileName, String sql) throws IOException 
 	{
-		System.out.println("Enter your sql command");
-		Scanner in = new Scanner(System.in);
 		String dir = System.getProperty("user.dir");
 		String url = "jdbc:sqlite:"+dir+"\\src\\banksy\\"+fileName;
-		String sql = in.nextLine();
-		
+		String sql_cmd = "CREATE TABLE "+ sql;
 		try(Connection conn = DriverManager.getConnection(url);
 				Statement stmt = conn.createStatement())
 		{
-			stmt.execute(sql);
+			stmt.execute(sql_cmd);
 		} catch (SQLException e) {
 			System.out.println("Error occurred while executing sql statement");
 			System.out.println(e.getMessage());
 		}
 	}
+
+	public void showAllTables(String fileName) throws IOException
+	{
+		String dir = System.getProperty("user.dir");
+		String url = "jdbc:sqlite:"+dir+"\\src\\banksy\\"+fileName;
+		String sql_cmd = "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'";
+		try(Connection conn = DriverManager.getConnection(url);
+				Statement stmt = conn.createStatement())
+		{
+			System.out.println(stmt.execute(sql_cmd));
+			System.out.println(stmt.getResultSet().getRow());
+		} catch (SQLException e) {
+			System.out.println("Error occurred while executing sql statement");
+			System.out.println(e.getMessage());
+		}
+	}
+	
 	
 }
