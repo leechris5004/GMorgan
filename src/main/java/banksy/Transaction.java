@@ -14,8 +14,6 @@ public class Transaction {
     protected String depositType; //
     protected Timestamp timestamp;
 
-
-
     public void CreateTransaction(int userID, int accountID, int amount) {
         //Active Transactions
         //Simply creates the information for the transaction

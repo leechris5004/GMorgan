@@ -29,13 +29,13 @@ public class SimpleRestfulServer {
     private SimpleRestfulServer() throws SQLException {
         logger.info("initializing ...");
         setUpDB();
-        Dao<User, String> userDao = DaoManager.createDao(connectionSource, User.class);
+        Dao<BankUser, String> userDao = DaoManager.createDao(connectionSource, BankUser.class);
         setUp(userDao);
-        TableUtils.createTableIfNotExists(connectionSource, User.class);
+        TableUtils.createTableIfNotExists(connectionSource, BankUser.class);
         logger.info("initialized");
     }
 
-    private void setUp(Dao<User, String> userDao) {
+    private void setUp(Dao<BankUser, String> userDao) {
 
         // http://localhost:4567/retrieveUser/1
 
@@ -43,7 +43,7 @@ public class SimpleRestfulServer {
             @Override
             public Object handle(Request request, Response response) {
                 logger.info("received get request /retrieveUser/");
-                User user = null;
+                BankUser user = null;
                 try {
                     user = userDao.queryForId(request.params(":id"));
                     logger.info(String.format("retrieved user from DB: user=%s", user));
@@ -68,7 +68,7 @@ public class SimpleRestfulServer {
                 logger.info("received post request /addUser");
                 String username = request.queryParams("username");
                 String email = request.queryParams("email");
-                User user = new User(username, email);
+                BankUser user = new BankUser(username, email);
                 logger.info("about to create: user=" + user);
                 int code;
                 String mesg;

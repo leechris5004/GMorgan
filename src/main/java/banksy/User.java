@@ -10,9 +10,9 @@ public class User {
 
 	private String firstName;
 	private String lastName;
-	
+
 	public User() {
-		
+
 	}
 
 	public User(String name1, String name2) {
@@ -24,7 +24,7 @@ public class User {
 		return false;
 	}
 
-	public boolean isAlphabetical(String input) {//Simply checks if a String is Alphabetical 
+	public boolean isAlphabetical(String input) {//Simply checks if a String is Alphabetical
 		String alphaRegex = "^[a-zA-Z]+$";
 		Pattern pat = Pattern.compile(alphaRegex);
 		if (input == null)
@@ -32,7 +32,7 @@ public class User {
 		return pat.matcher(input).matches();
 	}
 
-	public boolean nameCheck(String fname, String lname) {//Simply checks if the firstname and last name strings are 
+	public boolean nameCheck(String fname, String lname) {//Simply checks if the firstname and last name strings are
 		// Must be alphabetic, no numbers, no special characters
 		if (isAlphabetical(fname)) {
 			this.firstName = fname;
@@ -46,7 +46,7 @@ public class User {
 		}
 		return true;
 	}
-	
+
 
 	public boolean passwordCheck(String passwordCheck) {
 		// password must have an uppercase, a lowercase, a number and a symbol.

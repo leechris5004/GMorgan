@@ -1,20 +1,15 @@
 package banksy;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+
 import java.sql.*;
-//Just a Test
-import java.util.Scanner;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.io.File;
 
 public class Maria_DBManager implements DBManager {
 
 	Connection conn = null;
-
 
 	static final String JDBC_DRIVER = "org.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://ec2-52-202-114-229.compute-1.amazonaws.com/banksy";
@@ -22,7 +17,6 @@ public class Maria_DBManager implements DBManager {
     //  Database credentials
     static final String USER = "banksy";
     static final String PASS = "password";
-
 
     public void disconnectFromServer() {
     	try {
@@ -35,7 +29,7 @@ public class Maria_DBManager implements DBManager {
         }//end finally try
     }
 
-	public void connectToServer(){
+	public void connectToServer() {
 
 		Connection conn = null;
 				Statement stmt = null;
@@ -79,7 +73,7 @@ public class Maria_DBManager implements DBManager {
         String sql = " SELECT COUNT(1) FROM users WHERE userID =" + value;
     }
 
-    public void doesUserExist(String fname, String lname){
+    public void doesUserExist(String fname, String lname) {
         String sql = " SELECT COUNT(1) FROM users WHERE user_first =" + fname + " AND " + "user_last =" + lname;
     }
 
@@ -103,11 +97,8 @@ public class Maria_DBManager implements DBManager {
 
     }
 
-
-
 	@Override
-	public void createRegistrationTable(String fileName) throws IOException
-	{
+	public void createRegistrationTable(String fileName) throws IOException {
 		Connection conn = null;
         Statement stmt = null;
         try {
@@ -157,8 +148,5 @@ public class Maria_DBManager implements DBManager {
         }//end try
         System.out.println("Goodbye!");
     }//end main
-
-//end JDBCExample
-
 
 }
