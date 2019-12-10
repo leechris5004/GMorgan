@@ -85,7 +85,7 @@ input[type=text], input[type=password] {
   box-sizing: border-box;
 }
 
-button {
+input[type=button] {
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
@@ -95,7 +95,7 @@ button {
   width: 100%;
 }
 
-button:hover {
+input[type=button]:hover {
   opacity: 0.8;
 }
 
@@ -103,10 +103,11 @@ button:hover {
   padding: 16px;
 }
 
-span.psw {
-  float: right;
+.error {
+  float: left;
   padding-top: 0px;
-  font-size: 13px
+  font-size: 13px;
+  color: Red;
 }
 
 @media screen and (max-width: 300px) {

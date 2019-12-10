@@ -36,6 +36,23 @@ public class SimpleRestfulServer {
     }
 
     private void setUp(Dao<BankUser, String> userDao) {
+        // http://localhost:4567/loginUser?email=ron&password=ron@m3.com
+
+        get(new Route("/loginUser") {
+            @Override
+            public Object handle(Request request, Response response) {
+                logger.info("received post request /loginUser/");
+                String username = request.queryParams("email");
+                String password = request.queryParams("password");
+                int code;
+                String mesg = String.format("SUCCESS: Obtained login info user=%s password=%s", username, password);
+                logger.info(mesg);
+                code = 201;
+                response.status(code);
+                return mesg;
+            }
+        });
+
 
         // http://localhost:4567/retrieveUser/1
 
