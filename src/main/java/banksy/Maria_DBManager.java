@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class Maria_DBManager implements DBManager {
 
-	Connection conn = null;
+	public Connection conn;
 
 	static final String JDBC_DRIVER = "org.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://ec2-52-202-114-229.compute-1.amazonaws.com/banksy";
@@ -17,6 +17,11 @@ public class Maria_DBManager implements DBManager {
     //  Database credentials
     static final String USER = "banksy";
     static final String PASS = "password";
+
+    Maria_DBManager() throws SQLException {
+        conn = DriverManager.getConnection(
+                "jdbc:mysql://ec2-52-202-114-229.compute-1.amazonaws.com:3306/banksy", USER, PASS);
+    }
 
     public void disconnectFromServer() {
     	try {
@@ -78,8 +83,6 @@ public class Maria_DBManager implements DBManager {
     }
 
     public void addUser(String firstName, String lastName, String email, String ssn, String address) throws SQLException {
-        connectToServer();
-
         String sql = "Insert into users(user_first, user_last, user_ssn, user_address,user_email)"  + "Values(?,?,?,?,?)";
 
         PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -90,8 +93,6 @@ public class Maria_DBManager implements DBManager {
         prepStmt.setString(5, email);
 
         prepStmt.executeUpdate();
-
-        disconnectFromServer();
     }
     public void changeFunds(int amount){
 
