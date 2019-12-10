@@ -81,6 +81,11 @@ public class Maria_DBManager implements DBManager {
         String Sql = " SELECT COUNT(1) FROM users WHERE firstname =" + fname + " AND " + "lastname =" + lname;
     }
 
+    public void addUser(String firstName, String lastName, String email, String ssn, String address, byte[] password){
+        connectToServer();
+
+        disconnectFromServer();
+    }
     public void changeFunds(int amount){
 
     }
