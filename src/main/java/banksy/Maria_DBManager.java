@@ -1,4 +1,6 @@
 package banksy;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.sql.*;
 //Just a Test
 import java.util.Scanner;
@@ -74,15 +76,28 @@ public class Maria_DBManager implements DBManager {
 	public void doesUserExist(int value) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
-        String Sql = " SELECT COUNT(1) FROM users WHERE userID =" + value;
+        String sql = " SELECT COUNT(1) FROM users WHERE userID =" + value;
     }
 
     public void doesUserExist(String fname, String lname){
-        String Sql = " SELECT COUNT(1) FROM users WHERE firstname =" + fname + " AND " + "lastname =" + lname;
+        String sql = " SELECT COUNT(1) FROM users WHERE user_first =" + fname + " AND " + "user_last =" + lname;
     }
 
-    public void addUser(String firstName, String lastName, String email, String ssn, String address, byte[] password){
+    public void addUser(String firstName, String lastName, String email, String ssn, String address, byte[] password) throws SQLException {
         connectToServer();
+
+        InputStream passStream = new ByteArrayInputStream(password);
+        String sql = "Insert into users(user_first, user_last, user_ssn, user_address, user_address,user_email,user_password)"  + "Values(?,?,?,?)";
+
+        PreparedStatement prepStmt = conn.prepareStatement(sql);
+        prepStmt.setString(1, firstName);
+        prepStmt.setString(2, lastName);
+        prepStmt.setString(3, ssn);
+        prepStmt.setString(4, address);
+        prepStmt.setString(5, email);
+        prepStmt.setBinaryStream(6,passStream);
+
+        prepStmt.executeUpdate();
 
         disconnectFromServer();
     }
