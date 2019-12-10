@@ -6,8 +6,7 @@ import spark.Response;
 import spark.Route;
 import static spark.Spark.*;
 
-public class Main 
-{
+public class Main {
 	public static void main(String[] args) throws IOException 
 	{
 		get(new Route("/hello") {

@@ -1,21 +1,115 @@
+/*
+For the entire page
+*/
 body {
   font-family: helvetica;
 }
 
-ul {
-  font-family: monospace;
+/*
+For the top section
+*/
+* {
+  box-sizing: border-box;
 }
 
-li {
-  list-style: circle;
+.title {
+  text-align: center;
+  background-color: blue;
+  padding: 10px;
+  border-bottom: 2px solid black;
+}
+/*
+Split the screen into two
+*/
+.column {
+  float: left;
 }
 
-.list {
-  list-style: square;
+.left {
+  width: 75%;
+  background-color: white;
 }
 
-#date {
-  font-size: 12px;
-  font-style: italic;
-  font-weight: bold;
+.right {
+  width: 25%;
+  background-color: DarkCyan;
+  padding: 10px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.row {
+  border-bottom: 2px solid black;
+}
+
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
+
+/*
+For left split of login.
+*/
+img {
+  padding: 10px;
+  display: block;
+  margin: 0 auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+/*
+For right split of login.
+*/
+
+.center {
+  text-align: center;
+}
+
+form {
+  border: 3px solid #f1f1f1;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 10px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 0px;
+  font-size: 13px
+}
+
+@media screen and (max-width: 300px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
 }
