@@ -42,4 +42,16 @@ public class Transaction {
         //makes a timestamp
     }
 
+    public boolean checkUserID(String userID){
+        //Checks if there's a valid user ID
+        //if there is, passes true then changes
+        return true;
+
+    }
+    public boolean checkAccountID(String AccountID){
+        //Checks if there's a valid account ID
+        //If passing that validation, makes the type accountID
+        return true;
+    }
+
 }
