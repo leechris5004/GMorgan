@@ -73,8 +73,6 @@ For right split of login.
 
 form {
   border: 3px solid #f1f1f1;
-  position: relative;
-  height: 100%;
 }
 
 input[type=text], input[type=password] {
