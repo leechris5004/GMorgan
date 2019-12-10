@@ -17,7 +17,7 @@ public class Maria_DBManager implements DBManager {
 
 
 	static final String JDBC_DRIVER = "org.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mariadb://ec2-52-202-114-229.compute-1.amazonaws.com/banksy";
+    static final String DB_URL = "jdbc:mysql://ec2-52-202-114-229.compute-1.amazonaws.com/banksy";
 
     //  Database credentials
     static final String USER = "banksy";
@@ -41,7 +41,7 @@ public class Maria_DBManager implements DBManager {
 				Statement stmt = null;
 				try {
 						//STEP 2: Register JDBC driver
-						Class.forName("com.mariadb.jdbc.Driver");
+						Class.forName("com.mysql.jdbc.Driver");
 
 						//STEP 3: Open a connection
 						System.out.println("Connecting to a selected database...");
@@ -112,7 +112,7 @@ public class Maria_DBManager implements DBManager {
         Statement stmt = null;
         try {
             //STEP 2: Register JDBC driver
-            Class.forName("com.mariadb.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
 
             //STEP 3: Open a connection
             System.out.println("Connecting to a selected database...");
@@ -157,6 +157,7 @@ public class Maria_DBManager implements DBManager {
         }//end try
         System.out.println("Goodbye!");
     }//end main
+
 //end JDBCExample
 
 

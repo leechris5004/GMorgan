@@ -21,8 +21,8 @@ public class Main {
 */
 	public static void main(String[] args) throws IOException, SQLException {
 	Maria_DBManager	banksyAccess = new Maria_DBManager();
-	banksyAccess.addUser("Gabriel","Morgan","gabrielmorgan1230@gmail.com","123456789","343 east 51st");
-
+	//banksyAccess.addUser("Gabriel","Morgan","gabrielmorgan1230@gmail.com","123456789","343 east 51st");
+	banksyAccess.createRegistrationTable("");
 	}
 }
 
