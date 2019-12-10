@@ -1,4 +1,4 @@
-package main.java.banksy;
+package banksy;
 import java.sql.*;
 //Just a Test
 import java.util.Scanner;
@@ -11,16 +11,71 @@ import java.io.File;
 
 public class Maria_DBManager implements DBManager {
 	
+	Connection conn = null;
+    Statement stmt = null;
+
 	static final String JDBC_DRIVER = "org.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mariadb://ec2-52-202-114-229.compute-1.amazonaws.com/banksy";
 
     //  Database credentials
     static final String USER = "banksy";
     static final String PASS = "password";
+    
+    
+    public void disconnectFromServer() {
+    	try {
+            if (conn != null) {
+                conn.close();
+                System.out.println("Connected Closed Successfully...");
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }//end finally try 	
+    }
+    
+	public void connectToServer(){
+
+		Connection conn = null;
+				Statement stmt = null;
+				try {
+						//STEP 2: Register JDBC driver
+						Class.forName("com.mysql.jdbc.Driver");
+
+						//STEP 3: Open a connection
+						System.out.println("Connecting to a selected database...");
+						conn = DriverManager.getConnection(
+										"jdbc:mysql://ec2-52-202-114-229.compute-1.amazonaws.com:3306/banksy", USER, PASS);
+						System.out.println("Connected database successfully...");
+	} catch (SQLException se) {
+        //Handle errors for JDBC
+        se.printStackTrace();
+    } catch (Exception e) {
+        //Handle errors for Class.forName
+        e.printStackTrace();
+    } finally {
+        //finally block used to close resources
+        try {
+            if (stmt != null) {
+                conn.close();
+            }
+        } catch (SQLException se) {
+        }// do nothing
+        try {
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }//end finally try
+    }//end try
+				
+	}
+	
+	
 	
 	@Override
-	public void createRegistrationTable(String fileName) throws IOException 
-	{	
+	public void createRegistrationTable(String fileName) throws IOException
+	{
 		Connection conn = null;
         Statement stmt = null;
         try {
@@ -71,5 +126,6 @@ public class Maria_DBManager implements DBManager {
         System.out.println("Goodbye!");
     }//end main
 //end JDBCExample
-}
 
+
+}
