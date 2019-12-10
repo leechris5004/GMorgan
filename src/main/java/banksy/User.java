@@ -86,6 +86,7 @@ public class User {
 	}
 
 	public boolean ssnCheck(String ssn) {
+		//Expect number 9 digits
 
 		String lengthregex = "^(\\d{9})$";
 

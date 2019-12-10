@@ -30,16 +30,58 @@ class UserTest {
 		String pwTrue = "Helloworld123";
 		String pwFalse = "aaa";
 		User test = new User();
-		assertTrue(test.passwordCheck(pwTrue));
-		assertFalse(test.passwordCheck(pwFalse));
+		//assertTrue(test.passwordCheck(pwTrue));
+		//assertFalse(test.passwordCheck(pwFalse));
 	}
 
 	@Test
 	void testEmail(){
 
+		String emailTrue = "ted@gmail.com";
+		String emailTrue2 = "khay@hotmail.com";
+
+		String emailFalse = "ted.gmail.com";
+		String emailFalse2 = "ted@gmail";
+
+		User test = new User();
+
+		assertTrue(test.emailCheck(emailTrue));
+		assertTrue(test.emailCheck(emailTrue2));
+
+		assertFalse(test.emailCheck(emailFalse));
+		assertFalse(test.emailCheck(emailFalse));
+
+
+
+
+
+
+
 
 
 	}
+
+	@Test
+	void testSSN(){
+		String ssnPass = "123456789";
+		String ssnPass2 = "127618091";
+
+		String failTooLong = "12345678910";
+		String failWrongChar = "adb123801";
+		User test = new User();
+
+		assertTrue(test.ssnCheck(ssnPass));
+		assertTrue(test.ssnCheck(ssnPass2));
+
+		assertFalse(test.ssnCheck(failTooLong));
+		assertFalse(test.ssnCheck(failWrongChar));
+
+
+
+
+
+	}
+
 
 	
 
