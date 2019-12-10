@@ -72,14 +72,29 @@ public class Maria_DBManager implements DBManager {
 
 	}
 
-	public void printusers(){
+	public void printusers() throws SQLException {
+    String sql = "Select * from users";
+    Statement stmt;
+    stmt = conn.createStatement();
+    ResultSet results = stmt.executeQuery(sql);
+        while (results.next()) {
+            System.out.println(results.getString("user_email") + ", " +
+                    results.getString("user_first") + ", " +
+                    results.getString("user_last") + ", " +
+                    results.getString("user_address") + ", " +
+                    results.getString("user_ssn") );
 
+        }
     }
 
-	public void doesUserExist(int value) throws SQLException {
-        Statement stmt = null;
-        stmt = conn.createStatement();
-        String sql = " SELECT COUNT(1) FROM users WHERE userID =" + value;
+	public boolean doesUserExist(String email) throws SQLException {
+        String sql = "SELECT * FROM users WHERE user_email = ?";
+        PreparedStatement  prepStmt;
+
+        prepStmt = conn.prepareStatement(sql);
+        prepStmt.setString(1, email);
+        ResultSet results = prepStmt.executeQuery();
+      return (results.next());
     }
 
     public void doesUserExist(String fname, String lname) {
@@ -102,6 +117,8 @@ public class Maria_DBManager implements DBManager {
         System.out.println("That user already exists.");
         }
     }
+
+
     public void changeFunds(int amount){
 
     }
