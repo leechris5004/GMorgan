@@ -1,4 +1,5 @@
-package main.java.banksy;
+package banksy;
+
 import java.sql.*;
 //Just a Test
 import java.util.Scanner;
