@@ -7,7 +7,7 @@ import spark.Route;
 import static spark.Spark.*;
 
 public class Main {
-	public static void main(String[] args) throws IOException 
+	public static void main(String[] args) throws IOException
 	{
 		get(new Route("/hello") {
 			@Override
@@ -18,7 +18,7 @@ public class Main {
 		/*String fileName = "Banksy.db";
 		SQLite_DBManager dbm = new SQLite_DBManager();
 		dbm.createNewDatabase(fileName);
-		
+
 		String sql = "IF NOT EXISTS user (\n"
                 + "    user_id integer PRIMARY KEY,\n"
                 + "    name text NOT NULL,\n"
@@ -28,3 +28,5 @@ public class Main {
 		dbm.showAllTables(fileName);*/
 	}
 }
+
+

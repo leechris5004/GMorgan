@@ -83,11 +83,11 @@ public class Maria_DBManager implements DBManager {
         String sql = " SELECT COUNT(1) FROM users WHERE user_first =" + fname + " AND " + "user_last =" + lname;
     }
 
-    public void addUser(String firstName, String lastName, String email, String ssn, String address, byte[] password) throws SQLException {
+    public void addUser(String firstName, String lastName, String email, String ssn, String address) throws SQLException {
         connectToServer();
 
         InputStream passStream = new ByteArrayInputStream(password);
-        String sql = "Insert into users(user_first, user_last, user_ssn, user_address, user_address,user_email,user_password)"  + "Values(?,?,?,?)";
+        String sql = "Insert into users(user_first, user_last, user_ssn, user_address, user_address,user_email)"  + "Values(?,?,?,?,?)";
 
         PreparedStatement prepStmt = conn.prepareStatement(sql);
         prepStmt.setString(1, firstName);
@@ -95,7 +95,6 @@ public class Maria_DBManager implements DBManager {
         prepStmt.setString(3, ssn);
         prepStmt.setString(4, address);
         prepStmt.setString(5, email);
-        prepStmt.setBinaryStream(6,passStream);
 
         prepStmt.executeUpdate();
 
