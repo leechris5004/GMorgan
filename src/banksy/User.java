@@ -51,8 +51,10 @@ public class User {
 	public boolean passwordCheck(String passwordCheck) {
 		// password must have an uppercase, a lowercase, a number and a symbol.
 		String passwordRegex = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)";
+		String passwordRegexTwo = "((?=.*[a-z])(?=.*d)(?=.*[@#$%])(?=.*[A-Z]).{6,16})";
 
-		Pattern pat = Pattern.compile(passwordRegex);
+
+		Pattern pat = Pattern.compile(passwordRegexTwo);
 		if (passwordCheck == null)
 			return false;
 		return pat.matcher(passwordCheck).matches();

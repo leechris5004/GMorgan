@@ -32,9 +32,13 @@ class UserTest {
 		User test = new User();
 		assertTrue(test.passwordCheck(pwTrue));
 		assertFalse(test.passwordCheck(pwFalse));
-	
-		
-		
+	}
+
+	@Test
+	void test(){
+
+
+
 	}
 
 	
