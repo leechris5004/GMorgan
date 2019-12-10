@@ -1,13 +1,21 @@
 package banksy;
 
 import java.io.IOException;
+import spark.Request;
+import spark.Response;
+import spark.Route;
 import static spark.Spark.*;
 
 public class Main 
 {
 	public static void main(String[] args) throws IOException 
 	{
-		get("/hello", (req, res) -> "Hello World");
+		get(new Route("/hello") {
+			@Override
+			public Object handle(Request request, Response response) {
+				return "Hello World";
+			}
+		});
 		/*String fileName = "Banksy.db";
 		SQLite_DBManager dbm = new SQLite_DBManager();
 		dbm.createNewDatabase(fileName);
