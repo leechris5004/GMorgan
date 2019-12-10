@@ -34,18 +34,25 @@ public class User {
 
 		//Generates the SSN for the user
 		String genSsn = faker.idNumber().ssnValid().replaceAll("[-]","");
+		System.out.println(genSsn);
 
 		//Generates the email for the user
 		String genEmail = faker.internet().emailAddress();
+		System.out.println(genEmail);
 
 
 		//Generates the address for the user.
 		String genAddress = faker.address().streetAddress();
+		System.out.println(genAddress);
 
 
 		User genUser = new User(firstName, lastName); //generate a user with these firstName and lastname
-		genUser.ssnCheck(genSsn);//Set SSN
-		genUser.emailCheck(genEmail);//Set Email
+		//genUser.ssnCheck(genSsn);//Set SSN
+		genUser.setSsn(genSsn);//Set SSN
+
+		genUser.setEmail(genEmail);//Set email
+		//genUser.emailCheck(genEmail);//Set Email
+
 		genUser.setAddress(genAddress);//Set Address
 
 
@@ -70,18 +77,23 @@ public class User {
 		return this.lastName;
 	}
 
-	public void setSsn(){
-
-	}
-
 	public String getEmail(){
 		return this.email;
+	}
+
+	public void setEmail(String email){
+		this.email = email;
+
 	}
 
 
 
 	public String getSsn(){
 		return this.ssn;
+	}
+
+	public void setSsn(String ssn){
+		this.ssn = ssn;
 	}
 
 	public boolean createUser() {
