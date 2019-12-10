@@ -35,6 +35,20 @@ class UserTest {
 	}
 
 	@Test
+	void testPass() {
+
+		String pwTrue = "1mypasswordK";
+		String pwFalse = "aaa";
+		User test = new User();
+		assertTrue(test.passCheck(pwTrue));
+		assertFalse(test.passCheck(pwFalse));
+
+
+	}
+
+
+
+	@Test
 	void testEmail(){
 
 		String emailTrue = "ted@gmail.com";
@@ -49,7 +63,7 @@ class UserTest {
 		assertTrue(test.emailCheck(emailTrue2));
 
 		assertFalse(test.emailCheck(emailFalse));
-		assertFalse(test.emailCheck(emailFalse));
+		assertFalse(test.emailCheck(emailFalse2));
 
 
 

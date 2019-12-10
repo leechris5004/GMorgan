@@ -60,6 +60,50 @@ public class User {
 		return pat.matcher(passwordCheck).matches();
 	}
 
+	public boolean passCheck(String passwordCheck){
+
+		//Regex Strings for password conditions
+		String oneDigit = "(?=.*[0-9])";//At least oneDigit
+		String lowerCase =  "(?=.*[a-z])";//At least oneLowerDigit
+		String upperCase = "(?=.*[A-Z])";//at least one upperCase
+		String noSpace = "(?=\\S+$)";//at least noSpace
+
+
+		//Matching patterns for password validation
+		Pattern oneDigitPat = Pattern.compile(oneDigit);
+		Pattern lowerCasePat = Pattern.compile(lowerCase);
+		Pattern upperCasePat = Pattern.compile(upperCase);
+		Pattern noSpacePat = Pattern.compile(noSpace);
+
+
+		//If Statements for regex
+		if (passwordCheck == null){
+			return false;
+		}
+		if(passwordCheck.length() < 8){
+			return false;
+		}
+
+		if(!oneDigitPat.matcher(passwordCheck).matches()){
+			return false;
+		}
+		if(!lowerCasePat.matcher(passwordCheck).matches()){
+			return false;
+		}
+		if(!upperCasePat.matcher(passwordCheck).matches()){
+			return false;
+		}
+		if(!noSpacePat.matcher(passwordCheck).matches()){
+			return false;
+		}
+
+
+
+		return true;
+
+
+	}
+
 	public byte[] hashit(String plaintext) {
 		MessageDigest digest = null;
 		try {
