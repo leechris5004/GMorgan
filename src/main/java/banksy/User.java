@@ -1,5 +1,7 @@
 package banksy;
 
+import com.github.javafaker.Faker;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.security.MessageDigest;
@@ -19,8 +21,14 @@ public class User {
 		//Return's a user object with certain constraints to populate a table.
 		//Generating a first name and last name
 
-		User genUser = new User(); //Simply creates a new User Object
-		String alpha = ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmopqrstuvwxyz"];
+		//User genUser = new User(); //Simply creates a new User Object
+		Faker faker = new Faker();
+		String firstName = faker.name().firstName();
+		String lastName = faker.name().lastName();
+
+
+		//String alpha = ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmopqrstuvwxyz"];
+
 
 
 		return genUser;
