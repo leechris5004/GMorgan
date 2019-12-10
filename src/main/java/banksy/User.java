@@ -12,6 +12,7 @@ public class User {
 
 	private String firstName;
 	private String lastName;
+	private String ssn;
 
 	public User() {
 
@@ -25,8 +26,14 @@ public class User {
 		Faker faker = new Faker();
 		String firstName = faker.name().firstName();
 		String lastName = faker.name().lastName();
+		//String ssn = faker.ssn(taxpayer_identification_number_type="SSN");
+		//faker.
+
+		String genSsn = faker.idNumber().ssnValid().replaceAll("[-]","");
+
 
 		User genUser = new User(firstName, lastName); //generate a user with these firstName and lastname
+		genUser.ssnCheck(genSsn);
 
 
 
@@ -40,6 +47,18 @@ public class User {
 	public User(String name1, String name2) {
 		this.firstName = name1;
 		this.lastName = name2;
+	}
+
+	public String getFirstName() {
+		return this.firstName;
+	}
+
+	public String getLastName() {
+		return this.lastName;
+	}
+
+	public void setSsn(){
+
 	}
 
 	public boolean createUser() {
