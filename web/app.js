@@ -19,6 +19,8 @@ $(document).ready(function() {
                     $('input[type="text"],input[type="password"]').css({"border":"2px solid #00F5FF","box-shadow":"0 0 5px #00F5FF"});
                 }
                 $('#error').text(data);
+            }).fail(function() {
+                console.log("Failure");
             });
         }
     });
