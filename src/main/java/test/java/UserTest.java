@@ -35,7 +35,7 @@ class UserTest {
 	}
 
 	@Test
-	void test(){
+	void testEmail(){
 
 
 
