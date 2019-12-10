@@ -72,6 +72,10 @@ public class Maria_DBManager implements DBManager {
 
 	}
 
+	public void printusers(){
+
+    }
+
 	public void doesUserExist(int value) throws SQLException {
         Statement stmt = null;
         stmt = conn.createStatement();
@@ -91,8 +95,12 @@ public class Maria_DBManager implements DBManager {
         prepStmt.setString(3, ssn);
         prepStmt.setString(4, address);
         prepStmt.setString(5, email);
-
+    try {
         prepStmt.executeUpdate();
+    }
+    catch(Exception e){
+        System.out.println("That user already exists.");
+        }
     }
     public void changeFunds(int amount){
 
