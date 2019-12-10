@@ -61,6 +61,7 @@
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-xml:9.0.2.v20130417" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-servlet:9.0.2.v20130417" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-security:9.0.2.v20130417" level="project" />
+    <orderEntry type="library" name="Maven: org.mariadb.jdbc:mariadb-java-client:2.1.2" level="project" />
     <orderEntry type="library" name="Maven: com.j256.ormlite:ormlite-core:5.1" level="project" />
     <orderEntry type="library" name="Maven: com.j256.ormlite:ormlite-jdbc:5.1" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.5" level="project" />
