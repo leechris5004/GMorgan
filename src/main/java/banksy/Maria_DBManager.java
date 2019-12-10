@@ -87,6 +87,15 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
+    public void generateUser(int num_users) throws SQLException {
+        User u = new User();
+        for(int i = 0; i < num_users; i++)
+        {
+            User new_user = u.generateUser();
+            addUser(new_user.getFirstName(), new_user.getLastName(), new_user.getEmail(), new_user.getSsn(), new_user.getAddress());
+        }
+    }
+
 	public boolean doesUserExist(String email) throws SQLException {
         String sql = "SELECT * FROM users WHERE user_email = ?";
         PreparedStatement  prepStmt;
