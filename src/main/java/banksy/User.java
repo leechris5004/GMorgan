@@ -26,6 +26,9 @@ public class User {
 		String firstName = faker.name().firstName();
 		String lastName = faker.name().lastName();
 
+		User genUser = new User(firstName, lastName); //generate a user with these firstName and lastname
+
+
 
 		//String alpha = ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmopqrstuvwxyz"];
 
