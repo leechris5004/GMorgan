@@ -10,9 +10,9 @@ import java.sql.Statement;
 import java.io.File;
 
 public class Maria_DBManager implements DBManager {
-	
+
 	Connection conn = null;
-    Statement stmt = null;
+
 
 	static final String JDBC_DRIVER = "org.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mariadb://ec2-52-202-114-229.compute-1.amazonaws.com/banksy";
@@ -20,8 +20,8 @@ public class Maria_DBManager implements DBManager {
     //  Database credentials
     static final String USER = "banksy";
     static final String PASS = "password";
-    
-    
+
+
     public void disconnectFromServer() {
     	try {
             if (conn != null) {
@@ -30,9 +30,9 @@ public class Maria_DBManager implements DBManager {
             }
         } catch (SQLException se) {
             se.printStackTrace();
-        }//end finally try 	
+        }//end finally try
     }
-    
+
 	public void connectToServer(){
 
 		Connection conn = null;
@@ -68,11 +68,25 @@ public class Maria_DBManager implements DBManager {
             se.printStackTrace();
         }//end finally try
     }//end try
-				
+
 	}
-	
-	
-	
+
+	public void doesUserExist(int value) throws SQLException {
+        Statement stmt = null;
+        stmt = conn.createStatement();
+        String Sql = " SELECT COUNT(1) FROM users WHERE userID =" + value;
+    }
+
+    public void doesUserExist(String fname, String lname){
+        String Sql = " SELECT COUNT(1) FROM users WHERE firstname =" + fname + " AND " + "lastname =" + lname;
+    }
+
+    public void changeFunds(int amount){
+
+    }
+
+
+
 	@Override
 	public void createRegistrationTable(String fileName) throws IOException
 	{
