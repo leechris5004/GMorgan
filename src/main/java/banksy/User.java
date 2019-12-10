@@ -15,6 +15,17 @@ public class User {
 
 	}
 
+	public User generateUser(){
+		//Return's a user object with certain constraints to populate a table.
+		//Generating a first name and last name
+
+		User genUser = new User(); //Simply creates a new User Object
+		String alpha = ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmopqrstuvwxyz"];
+
+
+		return genUser;
+	}
+
 	public User(String name1, String name2) {
 		this.firstName = name1;
 		this.lastName = name2;
