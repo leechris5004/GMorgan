@@ -7,24 +7,43 @@
         <link rel="stylesheet" href="main.css">
     </head>
     <body>
-        <h1>Welcome to Morgan Bank</h1>
-        <img src="icon.jpg" alt="Mister Morgan">
-        <p>Hello! My name is Khayyon Parker and I will be your bank attendant for today!</p>
-        <p>Would you like to make a deposit?</p>
-        <button type="button">Yes</button>        <button type="button">Yes</button>
+        <div class="title">
+            <h1>Welcome to Morgan Bank</h1>
+        </div>
+        <div class="row">
+            <div class="column left">
+                <img src="icon.jpg" alt="Mister Morgan">
+                <div class="center">
+                    <p>Hello! My name is Khayyon Parker and I will be your bank attendant for today!</p>
+                    <p>Please, login!</p>
+                </div>
+            </div>
+            <div class="column right">
+                <form action="action_page.php" method="post">
+                    <div class="container">
+                        <label for="uname"><b>Username</b></label>
+                        <input type="text" placeholder="Enter Username" name="uname" required>
 
-        <!--
-        <p id="date"></p>
-        <ul>
-            <li class="list">Edit the head</li>
-            <li class="list">Edit the body</li>
-            <li>Link to JavaScript</li>
-        </ul>
-        !-->
+                        <label for="psw"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="psw" required>
 
-        <h2>Join the Morgan team!</h2>
+                        <button type="submit">Login</button>
+                        <label>
+                            <input type="checkbox" checked="checked" name="remember"> Remember me
+                        </label>
+                        <span class="psw">Forgot <a href="#">password?</a></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="center">
+            <h2>Join the Morgan team!</h2>
+        </div>
         <img src="team.jpg" alt="Morgans Family" width="50%" height="50%">
-        <p>Employees get free turtlenecks and gold chains!</p>
+        <div class="center">
+            <p>Employees get free turtlenecks and gold chains!</p>
+        </div>
         <script src="app.js"></script>
         <noscript>You need to enable JavaScript to view the full site.</noscript>
     </body>
