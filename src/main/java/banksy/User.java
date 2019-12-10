@@ -74,6 +74,12 @@ public class User {
 
 	}
 
+	public String getEmail(){
+		return this.email;
+	}
+
+
+
 	public String getSsn(){
 		return this.ssn;
 	}
