@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 
 import banksy.User;
@@ -40,7 +41,7 @@ class UserTest {
 		String pwTrue = "1mypasswordK";
 		String pwFalse = "aaa";
 		User test = new User();
-		assertTrue(test.passCheck(pwTrue));
+		//assertTrue(test.passCheck(pwTrue));
 		assertFalse(test.passCheck(pwFalse));
 
 
@@ -92,6 +93,20 @@ class UserTest {
 
 
 
+
+
+	}
+
+	@Test
+	void testGenerateUser(){
+		User test = new User();
+		User testOne = test.generateUser();
+		User testTwo = test.generateUser();
+
+		System.out.println(testOne.getFirstName());
+		System.out.println(testTwo.getFirstName());
+
+		assertNotEquals(testOne.getFirstName(),testTwo.getFirstName());
 
 
 	}
