@@ -85,8 +85,7 @@ public class Maria_DBManager implements DBManager {
 
     public void addUser(String firstName, String lastName, String email, String ssn, String address) throws SQLException {
         connectToServer();
-
-        InputStream passStream = new ByteArrayInputStream(password);
+        
         String sql = "Insert into users(user_first, user_last, user_ssn, user_address, user_address,user_email)"  + "Values(?,?,?,?,?)";
 
         PreparedStatement prepStmt = conn.prepareStatement(sql);
