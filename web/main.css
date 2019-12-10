@@ -56,7 +56,7 @@ Split the screen into two
 /*
 For left split of login.
 */
-img {
+.icon {
   padding: 10px;
   display: block;
   margin: 0 auto;
@@ -69,6 +69,7 @@ For right split of login.
 
 .center {
   text-align: center;
+  margin: auto;
 }
 
 form {
