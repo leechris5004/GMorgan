@@ -89,9 +89,9 @@ public class SimpleRestfulServer {
     }
 
     private void setUpDB() throws SQLException {
-        String databaseUrl = "jdbc:mysql://localhost/testDB";
+        String databaseUrl = "jdbc:mysql://ec2-52-202-114-229.compute-1.amazonaws.com:3306/banksy";
         connectionSource = new JdbcConnectionSource(databaseUrl);
-        ((JdbcConnectionSource) connectionSource).setUsername("root");
-        ((JdbcConnectionSource) connectionSource).setPassword("");
+        ((JdbcConnectionSource) connectionSource).setUsername("banksy");
+        ((JdbcConnectionSource) connectionSource).setPassword("password");
     }
 }
