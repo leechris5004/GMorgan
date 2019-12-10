@@ -13,6 +13,9 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String ssn;
+	private String address;
+	private String email;
+
 
 	public User() {
 
@@ -29,11 +32,21 @@ public class User {
 		//String ssn = faker.ssn(taxpayer_identification_number_type="SSN");
 		//faker.
 
+		//Generates the SSN for the user
 		String genSsn = faker.idNumber().ssnValid().replaceAll("[-]","");
+
+		//Generates the email for the user
+		String genEmail = faker.internet().emailAddress();
+
+
+		//Generates the address for the user.
+		String genAddress = faker.address().streetAddress();
 
 
 		User genUser = new User(firstName, lastName); //generate a user with these firstName and lastname
-		genUser.ssnCheck(genSsn);
+		genUser.ssnCheck(genSsn);//Set SSN
+		genUser.emailCheck(genEmail);//Set Email
+		genUser.setAddress(genAddress);//Set Address
 
 
 
@@ -61,8 +74,20 @@ public class User {
 
 	}
 
+	public String getSsn(){
+		return this.ssn;
+	}
+
 	public boolean createUser() {
 		return false;
+	}
+
+	public void setAddress(String streetAddress){
+		this.address = streetAddress;
+	}
+
+	public String getAddress(){
+		return this.address;
 	}
 
 	public boolean isAlphabetical(String input) {//Simply checks if a String is Alphabetical
