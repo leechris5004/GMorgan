@@ -14,7 +14,7 @@ $(document).ready(function() {
     $(".container").on("click", "#acceptD", function() {
         var Email = $("#email").val();
         var Amount = $("#amount").val();
-        $.post('http://localhost:4567/add', {email: Email, amount: Amount}).done(function(data) {
+        $.post('http://localhost:4567/add', {email: Email, amount: Amount, positive: "true"}).done(function(data) {
             if (data == 'true') {
                 $('#error').text("Transaction Successful.");
             } else if (data == 'False') {
@@ -30,7 +30,7 @@ $(document).ready(function() {
     $(".container").on("click", "#acceptW", function() {
         var Email = $("#email").val();
         var Amount = $("#amount").val();
-        $.post('http://localhost:4567/remove', {email: Email, amount: Amount}).done(function(data) {
+        $.post('http://localhost:4567/remove', {email: Email, amount: Amount, positive: "false"}).done(function(data) {
             if (data == 'true') {
                 $('#error').text("Transaction Successful.");
             } else if (data == 'False') {
