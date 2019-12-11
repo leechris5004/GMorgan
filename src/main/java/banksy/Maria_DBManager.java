@@ -118,6 +118,22 @@ public class Maria_DBManager implements DBManager {
         return (results.next());
     }
 
+    public int getUserID(String email) throws SQLException {
+        if(!doesUserExist(email)){
+            return 0;
+        }else{
+            String sql = "SELECT * from users where user_email = ?";
+            PreparedStatement  prepStmt;
+
+            prepStmt = conn.prepareStatement(sql);
+            prepStmt.setString(1,email);
+            ResultSet results = prepStmt.executeQuery();
+            results.next();
+            return results.getInt("userID");
+        }
+
+    }
+
 
     public void doesUserExist(String fname, String lname) {
         String sql = " SELECT COUNT(1) FROM users WHERE user_first =" + fname + " AND " + "user_last =" + lname;
@@ -211,6 +227,7 @@ public class Maria_DBManager implements DBManager {
 
         }
     }
+
 
     //etc
     public void changeFunds(int amount){
