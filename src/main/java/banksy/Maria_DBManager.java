@@ -23,6 +23,7 @@ public class Maria_DBManager implements DBManager {
                 "jdbc:mysql://ec2-52-202-114-229.compute-1.amazonaws.com:3306/banksy", USER, PASS);
     }
 
+    //Server Connection Functions
     public void disconnectFromServer() {
     	try {
             if (conn != null) {
@@ -72,6 +73,7 @@ public class Maria_DBManager implements DBManager {
 
 	}
 
+	//User Table Functions
 	public void printusers() throws SQLException {
     String sql = "Select * from users";
     Statement stmt;
@@ -87,6 +89,15 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
+    public void generateUser(int num_users) throws SQLException {
+        User u = new User();
+        for(int i = 0; i < num_users; i++)
+        {
+            User new_user = u.generateUser();
+            addUser(new_user.getFirstName(), new_user.getLastName(), new_user.getEmail(), new_user.getSsn(), new_user.getAddress());
+        }
+    }
+
 	public boolean doesUserExist(String email) throws SQLException {
         String sql = "SELECT * FROM users WHERE user_email = ?";
         PreparedStatement  prepStmt;
@@ -95,6 +106,10 @@ public class Maria_DBManager implements DBManager {
         prepStmt.setString(1, email);
         ResultSet results = prepStmt.executeQuery();
       return (results.next());
+    }
+
+    public void doesUserExist(String fname, String lname) {
+        String sql = " SELECT COUNT(1) FROM users WHERE user_first =" + fname + " AND " + "user_last =" + lname;
     }
 
     public void addUser(String firstName, String lastName, String email, String ssn, String address) throws SQLException {
@@ -114,13 +129,13 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
-    public void addAccount(int userID, String type, int amount) throws SQLException {
-        String sql = "Insert into accounts(userID, accountType, amount)"  + "Values(?,?,?)";
+    //Account Table Functions
+    public void addAccount(String accountType, int amount) throws SQLException {
+        String sql = "Insert into accounts(accountType, amount)"  + "Values(?,?)";
 
         PreparedStatement prepStmt = conn.prepareStatement(sql);
-        prepStmt.setInt(1,userID);
-        prepStmt.setString(2, type);
-        prepStmt.setInt(3, amount);
+        prepStmt.setString(1, accountType);
+        prepStmt.setInt(2, amount);
         try {
             prepStmt.executeUpdate();
         }
@@ -129,24 +144,39 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
-    public void addTransaction(int firstAccount, int secondAccount, int amount, String type, Date tdate) throws SQLException {
-        String sql = "Insert into transactions(accountID , otherAccountID , amount, depositType, transactiontime)"  + "Values(?,?,?,?,?)";
-
-        PreparedStatement prepStmt = conn.prepareStatement(sql);
-        prepStmt.setInt(1,a);
-        prepStmt.setString(2, type);
-        prepStmt.setInt(3, amount);
-        try {
-            prepStmt.executeUpdate();
-        }
-        catch(Exception e){
-            System.out.println("That account already exists.");
+    public void generateAccounts(int num_accounts) throws SQLException {
+        Account a = new Account();
+        for(int i = 0; i < num_accounts; i++)
+        {
+            Account new_account = a.generateAccount();
+            addAccount(new_account.getAccountType(), new_account.getAmount());
         }
     }
 
+    public boolean doesAccountExist(String accountType, int amount) throws SQLException {
+        String sql = "SELECT * FROM accounts WHERE accountType = ? AND amount = ?";
+        PreparedStatement prepStmt;
 
+        prepStmt = conn.prepareStatement(sql);
+        prepStmt.setString(1,accountType);
+        prepStmt.setInt(2, amount);
+        ResultSet results = prepStmt.executeQuery();
+        return(results.next());
+    }
 
-    public void changeFunds(int account, int amount){
+    public void printaccounts() throws SQLException {
+        String sql = "Select * from accounts";
+        Statement stmt;
+        stmt = conn.createStatement();
+        ResultSet results = stmt.executeQuery(sql);
+        while (results.next()) {
+            System.out.println(results.getString("accountType") + ", " +
+                    results.getString("amount"));
+        }
+    }
+
+    //etc
+    public void changeFunds(int amount){
 
     }
 

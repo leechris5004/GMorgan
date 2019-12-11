@@ -3,8 +3,9 @@
     <head>
         <meta charset="utf-8">
         <title>Morgan Bank</title>
-        <script src="jquery-3.4.1.min.js"></script>
         <link rel="stylesheet" href="main.css">
+        <script src="jquery-3.4.1.min.js"></script>
+        <script src="app.js"></script>
     </head>
     <body>
         <div class="title">
@@ -19,19 +20,16 @@
                 </div>
             </div>
             <div class="column right">
-                <form action="action_page.php" method="post">
+                <form class="form" method="post" action="#">
                     <div class="container">
-                        <label for="uname"><b>Username</b></label>
-                        <input type="text" placeholder="Enter Username" name="uname" required>
+                        <label><b>Email</b></label>
+                        <input type="text" placeholder="Enter Email" id="email" required>
 
-                        <label for="psw"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password" name="psw" required>
+                        <label><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" id="password" required>
+                        <p class="error" id="error"> </p>
 
-                        <button type="submit">Login</button>
-                        <label>
-                            <input type="checkbox" checked="checked" name="remember"> Remember me
-                        </label>
-                        <span class="psw">Forgot <a href="#">password?</a></span>
+                        <input type="button" id="login" value="Login">
                     </div>
                 </form>
             </div>
@@ -46,7 +44,6 @@
             <img src="sponsor.jpg" alt="Morgans Family" width="20%" height="20%">
         </div>
 
-        <script src="app.js"></script>
         <noscript>You need to enable JavaScript to view the full site.</noscript>
     </body>
 </html>

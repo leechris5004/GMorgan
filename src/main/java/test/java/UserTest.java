@@ -104,9 +104,16 @@ class UserTest {
 		User testTwo = test.generateUser();
 
 		System.out.println(testOne.getFirstName());
-		System.out.println(testTwo.getFirstName());
+		System.out.println(testOne.getSsn());
+		System.out.println(testOne.getEmail());
+
+		//System.out.println(testTwo.getFirstName());
+
 
 		assertNotEquals(testOne.getFirstName(),testTwo.getFirstName());
+		assertTrue(testOne.ssnCheck(testOne.getSsn()));
+		assertTrue(testOne.emailCheck(testOne.getEmail()));
+
 
 
 	}
