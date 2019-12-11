@@ -1,7 +1,5 @@
 package banksy;
-
-import static spark.Spark.get;
-import static spark.Spark.post;
+import static spark.Spark.*;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
@@ -36,21 +34,26 @@ public class SimpleRestfulServer {
     }
 
     private void setUp(Dao<BankUser, String> userDao) {
-        // http://localhost:4567/loginUser?email=ron&password=ron@m3.com
+        // http://localhost:4567/login
 
-        post(new Route("/loginUser") {
+        post(new Route("/login") {
             @Override
             public Object handle(Request request, Response response) {
-                response.type("application/json");
-                logger.info("received post request /loginUser/");
+                logger.info("received post request /login");
                 String email = request.queryParams("email");
                 String password = request.queryParams("password");
                 int code;
-                String mesg = String.format("SUCCESS: Obtained login info user=%s password=%s", email, password);
-                logger.info(mesg);
-                code = 201;
+                String msg;
+                if (true) {
+                    msg = String.format("SUCCESS: Login successful for user=%s password=%s", email, password);
+                    code = 201;
+                } else {
+                    msg = String.format("FAILURE: user=%s password=%s was not found", email, password);
+                    code = 500;
+                }
+                logger.info(msg);
                 response.status(code);
-                return mesg;
+                return code == 201 ? "true" : "false";
             }
         });
 

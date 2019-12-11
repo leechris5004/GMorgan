@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <title>Morgan Bank</title>
-        <link rel="stylesheet" href="main.css">
-        <script src="jquery-3.4.1.min.js"></script>
-        <script src="app.js"></script>
+        <link rel="stylesheet" href="login.css">
+        <script src="../jquery-3.4.1.min.js"></script>
+        <script src="login.js" type="text/javascript"></script>
     </head>
     <body>
         <div class="title">
@@ -19,16 +19,15 @@
                     <p>Please, login!</p>
                 </div>
             </div>
+
             <div class="column right">
-                <form class="form" method="post" action="#">
+                <form class="form">
                     <div class="container">
                         <label><b>Email</b></label>
                         <input type="text" placeholder="Enter Email" id="email" required>
-
                         <label><b>Password</b></label>
                         <input type="password" placeholder="Enter Password" id="password" required>
-                        <p class="error" id="error"> </p>
-
+                        <p class="error" id="error"></p>
                         <input type="button" id="login" value="Login">
                     </div>
                 </form>

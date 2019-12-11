@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Morgan Bank: Dashboard</title>
+        <link rel="stylesheet" href="dashboard.css">
+        <script src="../jquery-3.4.1.min.js"></script>
+        <script src="dashboard.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div class="title">
+            <h1>Here is your Dashboard</h1>
+        </div>
+        <div class="row">
+            <div class="column left">
+                <img class="icon" src="../login/icon.jpg" alt="Mister Morgan">
+                <div class="center">
+                    <p>Hello! My name is Khayyon Parker and I will be your bank attendant for today!</p>
+                    <p>Please, login!</p>
+                </div>
+            </div>
+            <div class="column right">
+                <form class="form">
+                    <div class="container">
+                        <label><b>Email</b></label>
+                        <input type="text" placeholder="Enter Email" id="email" required>
+
+                        <label><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" id="password" required>
+                        <p class="error" id="error"> </p>
+
+                        <input type="button" id="login" value="Login">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="center">
+            <h2>Join the Morgan team!</h2>
+            <img src="../login/team.jpg" alt="Morgans Family" width="50%" height="50%">
+            <p>Employees get free turtlenecks and gold chains!</p>
+            <h3>This project is sponsored by Ron "ronthecon" Lobo</h3>
+            <img src="../login/thumbsup.png" alt="Morgans Family" width="10%" height="10%">
+            <img src="../login/sponsor.jpg" alt="Morgans Family" width="20%" height="20%">
+        </div>
+
+        <noscript>You need to enable JavaScript to view the full site.</noscript>
+    </body>
+</html>
