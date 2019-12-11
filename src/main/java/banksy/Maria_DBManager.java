@@ -22,8 +22,9 @@ public class Maria_DBManager implements DBManager {
         conn = DriverManager.getConnection(
                 "jdbc:mysql://ec2-52-202-114-229.compute-1.amazonaws.com:3306/banksy", USER, PASS);
     }
-
+//======================================================================================================================
     //Server Connection Functions
+
     public void disconnectFromServer() {
     	try {
             if (conn != null) {
@@ -72,7 +73,7 @@ public class Maria_DBManager implements DBManager {
     }//end try
 
 	}
-
+//======================================================================================================================
 	//User Table Functions
 	public void printusers() throws SQLException {
     String sql = "Select * from users";
@@ -118,6 +119,22 @@ public class Maria_DBManager implements DBManager {
         return (results.next());
     }
 
+    public int getUserID(String email) throws SQLException {
+        if(!doesUserExist(email)){
+            return 0;
+        }else{
+            String sql = "SELECT * from users where user_email = ?";
+            PreparedStatement  prepStmt;
+
+            prepStmt = conn.prepareStatement(sql);
+            prepStmt.setString(1,email);
+            ResultSet results = prepStmt.executeQuery();
+            results.next();
+            return results.getInt("userID");
+        }
+
+    }
+
 
     public void doesUserExist(String fname, String lname) {
         String sql = " SELECT COUNT(1) FROM users WHERE user_first =" + fname + " AND " + "user_last =" + lname;
@@ -140,6 +157,7 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
+    //======================================================================================================================
     //Account Table Functions
     public void addAccount(String accountType, int amount) throws SQLException {
         String sql = "Insert into accounts(accountType, amount)"  + "Values(?,?)";
@@ -184,7 +202,7 @@ public class Maria_DBManager implements DBManager {
         return (results.next());
     }
 
-    public void printaccounts() throws SQLException {
+    public void printAccounts() throws SQLException {
         String sql = "Select * from accounts";
         Statement stmt;
         stmt = conn.createStatement();
@@ -211,6 +229,7 @@ public class Maria_DBManager implements DBManager {
 
         }
     }
+
 
     //etc
     public void changeFunds(int amount){
