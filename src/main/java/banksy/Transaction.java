@@ -1,5 +1,6 @@
 package banksy;
 
+import java.sql.Array;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -76,10 +77,11 @@ public class Transaction {
         return account;
     }
 
-    public void generateRandomTransactions(int num_transactions) throws SQLException {
-
+    public Transaction[] generateRandomTransactions(int num_transactions) throws SQLException {
+        Maria_DBManager accounts = new Maria_DBManager();
         //Will use a function to bound the Random Numbers to User accounts
-        int bounds = 0;
+        Transaction[] transactions = new Transaction[num_transactions];
+        int bounds = accounts.countUsers();
         Random rand = new Random();
         for(int transaction_number = 0; transaction_number < num_transactions; transaction_number++)
         {
@@ -88,8 +90,9 @@ public class Transaction {
             while(account1 == account2) {
                 account2 = generateRandomAccountID(bounds);
             }
-            CreateTransaction(account1,account2,rand.nextInt(), rand.nextInt()%2==0 ? true:false);
+            transactions[transaction_number] = CreateTransaction(account1,account2,rand.nextInt(), rand.nextInt()%2==0 ? true:false);
         }
+        return transactions;
     }
 
     // Time Stamp Functions
