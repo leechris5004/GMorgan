@@ -213,9 +213,9 @@ public class User {
 		return pat.matcher(email).matches();
 	}
 
-	public boolean passwordCheck(String email, String password){
-		return true;
-	}
+
+
+
 
 	public boolean ssnCheck(String ssn) {
 		//Expect number 9 digits

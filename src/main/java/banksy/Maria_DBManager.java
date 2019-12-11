@@ -1,11 +1,19 @@
 package banksy;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.math.BigInteger;
+import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+
+
 
 public class Maria_DBManager implements DBManager {
 
@@ -248,6 +256,83 @@ public class Maria_DBManager implements DBManager {
         prepStmt.setInt(2,account);
         prepStmt.executeUpdate();
     }
+    }
+
+    public String hashit(String plaintext) {
+        try {
+            // getInstance() method is called with algorithm SHA-1
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+
+            // digest() method is called
+            // to calculate message digest of the input string
+            // returned as array of byte
+            byte[] messageDigest = md.digest(plaintext.getBytes());
+
+            // Convert byte array into signum representation
+            BigInteger no = new BigInteger(1, messageDigest);
+
+            // Convert message digest into hex value
+            String hashtext = no.toString(16);
+
+            // Add preceding 0s to make it 32 bit
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+
+            // return the HashText
+            String shortened = hashtext.substring(0, Math.min(hashtext.length(), 15));
+            return shortened;
+        }
+
+        // For specifying wrong message digest algorithms
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void setPassword(int user, String password) throws SQLException {
+        String hashed = hashit(password);
+        PreparedStatement prepStmt;
+        if(!doesUserExist(user)){
+            System.out.println("User does not exist");
+        }else{
+            String sql = "update users set user_password = ? where userId = ?";
+            prepStmt = conn.prepareStatement(sql);
+            prepStmt.setString(1,hashed);
+            prepStmt.setInt(2,user);
+            prepStmt.executeUpdate();
+        }
+
+    }
+
+
+    public boolean passwordCheck(int user, String password) throws SQLException {
+       String hashed = hashit(password);
+        if(!doesUserExist(user)){
+            return false;
+        }else{
+            String sql = "SELECT * from users where userID = ?";
+            PreparedStatement  prepStmt;
+
+            prepStmt = conn.prepareStatement(sql);
+            prepStmt.setInt(1,user);
+            ResultSet results = prepStmt.executeQuery();
+            results.next();
+            String storedpw = results.getString("user_password");
+            System.out.println(hashed);
+            System.out.println(storedpw);
+            if(storedpw.trim().equals( hashed.trim())){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    public boolean passwordCheck(String email, String password) throws SQLException {
+        boolean b = passwordCheck(getUserID(email), password);
+        return b;
     }
 
 
