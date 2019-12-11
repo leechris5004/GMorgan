@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
+import java.util.Random;
+
 /* Transaction is called by main to manage transactions.
 In the future, it may have concurrency capabilities.
  */
@@ -16,8 +18,7 @@ public class Transaction {
     protected Timestamp timestamp;
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
 
-    // Needed for Transaction population methods
-    public Transaction(){
+    public Transaction() {
 
     }
 
@@ -53,11 +54,7 @@ public class Transaction {
         return record;
     }
 
-    // show the change funds be in Transaction
-    // I think I need the DBManager to be able to change funds
-
-    public void changeFunds(int accountID, int otherAccountID, int amount, boolean willDeposit) throws SQLException
-    {
+    public void changeFunds(int accountID, int otherAccountID, int amount, boolean willDeposit) throws SQLException {
         Maria_DBManager accounts = new Maria_DBManager();
 
         if(willDeposit == true){
@@ -69,6 +66,29 @@ public class Transaction {
             // Same logic but funds are modified in reverse
             accounts.changeFunds(accountID, amount);
             accounts.changeFunds(otherAccountID, -1*amount);
+        }
+    }
+
+    public int generateRandomAccountID(int bound)
+    {
+        Random rand = new Random();
+        int account = rand.nextInt(bound);
+        return account;
+    }
+
+    public void generateRandomTransactions(int num_transactions) throws SQLException {
+
+        //Will use a function to bound the Random Numbers to User accounts
+        int bounds = 0;
+        Random rand = new Random();
+        for(int transaction_number = 0; transaction_number < num_transactions; transaction_number++)
+        {
+            int account1 = generateRandomAccountID(bounds);
+            int account2 = generateRandomAccountID(bounds);
+            while(account1 == account2) {
+                account2 = generateRandomAccountID(bounds);
+            }
+            CreateTransaction(account1,account2,rand.nextInt(), rand.nextInt()%2==0 ? true:false);
         }
     }
 
