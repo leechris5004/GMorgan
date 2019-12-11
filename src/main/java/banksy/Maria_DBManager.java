@@ -12,7 +12,8 @@ import java.sql.Statement;
 import java.math.BigInteger;
 import java.io.InputStream;
 import java.io.ByteArrayInputStream;
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Maria_DBManager implements DBManager {
@@ -155,6 +156,47 @@ public class Maria_DBManager implements DBManager {
 
     }
 
+    public List<String> getUserInfo(int user) throws SQLException {
+
+        PreparedStatement prepStmt;
+
+        List<String> userinfo = new ArrayList<String>();
+        String sql = "Select * from users where userID = ?";
+        prepStmt = conn.prepareStatement(sql);
+
+        prepStmt.setInt(1, user);
+
+        ResultSet results = prepStmt.executeQuery();
+        results.next();
+        userinfo.add(results.getString(1));
+        userinfo.add(results.getString(2));
+        userinfo.add(results.getString(3));
+        userinfo.add(results.getString(4));
+        userinfo.add(results.getString(5));
+        userinfo.add(results.getString(6));
+        return userinfo;
+    }
+    public List<String> getUserInfo(String user) throws SQLException {
+
+        PreparedStatement prepStmt;
+
+        List<String> userinfo = new ArrayList<String>();
+        String sql = "Select * from users where user_email = ?";
+        prepStmt = conn.prepareStatement(sql);
+
+        prepStmt.setString(1, user);
+
+        ResultSet results = prepStmt.executeQuery();
+        results.next();
+        userinfo.add(results.getString(1));
+        userinfo.add(results.getString(2));
+        userinfo.add(results.getString(3));
+        userinfo.add(results.getString(4));
+        userinfo.add(results.getString(5));
+        userinfo.add(results.getString(6));
+        return userinfo;
+    }
+
 
     public void doesUserExist(String fname, String lname) {
         String sql = " SELECT COUNT(1) FROM users WHERE user_first =" + fname + " AND " + "user_last =" + lname;
@@ -264,6 +306,45 @@ public class Maria_DBManager implements DBManager {
             prepStmt.executeUpdate();
 
         }
+    }
+
+    public List<String> getAccountInfo(int accountID) throws SQLException {
+
+        PreparedStatement prepStmt;
+
+        List<String> userinfo = new ArrayList<String>();
+        String sql = "Select * from accounts where accountID = ?";
+        prepStmt = conn.prepareStatement(sql);
+
+        prepStmt.setInt(1, accountID);
+
+        ResultSet results = prepStmt.executeQuery();
+        results.next();
+        userinfo.add(results.getString(1));
+        userinfo.add(results.getString(2));
+        userinfo.add(results.getString(3));
+        userinfo.add(results.getString(4));
+        return userinfo;
+    }
+    public List<String> geTransactionInfo(int tID) throws SQLException {
+
+        PreparedStatement prepStmt;
+
+        List<String> userinfo = new ArrayList<String>();
+        String sql = "Select * from transactions where transactionID = ?";
+        prepStmt = conn.prepareStatement(sql);
+
+        prepStmt.setInt(1, tID);
+
+        ResultSet results = prepStmt.executeQuery();
+        results.next();
+        userinfo.add(results.getString(1));
+        userinfo.add(results.getString(2));
+        userinfo.add(results.getString(3));
+        userinfo.add(results.getString(4));
+        userinfo.add(results.getString(5));
+        userinfo.add(results.getString(6));
+        return userinfo;
     }
 
     public void assignAccount(String email, int accountID) throws SQLException {

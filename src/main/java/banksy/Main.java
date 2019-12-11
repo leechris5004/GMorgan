@@ -21,12 +21,12 @@ public class Main {
 */
 	public static void main(String[] args) throws IOException, SQLException {
 	Maria_DBManager	banksyAccess = new Maria_DBManager();
+	System.out.println(banksyAccess.getUserInfo(15));
 
 	//banksyAccess.setPassword(14, "password");
 	//System.out.println(banksyAccess.realPasswordCheck(14,"password"));
 	System.out.println(banksyAccess.countUsers());
-	Transaction t = new Transaction(3,1,100);
-	t.CreateTransaction(3,1,100, true);
+
 
 	//banksyAccess.changeFunds(3,-40);
 	//System.out.println(banksyAccess.getUserID("vickie.will@yahoo.com"));
