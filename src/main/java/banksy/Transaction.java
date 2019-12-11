@@ -1,5 +1,6 @@
 package banksy;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
@@ -20,14 +21,24 @@ public class Transaction {
 
     }
 
-    public void CreateTransaction(int userID, int accountID, int amount) {
+    // Added another constructor
+    public Transaction(int accountID, int amount){
+        this.accountID = accountID;
+        this.amount = amount;
+    }
+
+    public void CreateTransaction(int accountID, int amount) throws SQLException {
         //Active Transactions
         //Simply creates the information for the transaction
         Transaction record = new Transaction();
-        this.accountID = accountID;
-        this.amount = amount;
-        this.timestamp = new Timestamp(System.currentTimeMillis());
+        Maria_DBManager accountTable = new Maria_DBManager();
+
+        // Changed references to new transaction record instead of current one
+        record.accountID = accountID;
+        record.amount = amount;
+        record.timestamp = new Timestamp(System.currentTimeMillis());
         record.checkType();
+
     }
 
     // Deposit Type Functions
