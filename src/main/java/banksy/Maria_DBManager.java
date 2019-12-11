@@ -291,6 +291,17 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
+    public int countAccounts() throws SQLException {
+
+        String sql = "Select count(*) as total from accounts";
+        PreparedStatement  prepStmt;
+
+        prepStmt = conn.prepareStatement(sql);
+
+        ResultSet results = prepStmt.executeQuery();
+        results.next();
+        return results.getInt("total");
+    }
     public void assignAccount(int userID, int accountID) throws SQLException {
         PreparedStatement prepStmt;
         if (!doesUserExist(userID) || !doesAccountExist(accountID)){
