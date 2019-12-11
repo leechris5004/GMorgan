@@ -48,25 +48,30 @@ public class Transaction {
 
         record.timestamp = new Timestamp(System.currentTimeMillis());
         record.transactionType = willDeposit == true ? "DEP" : "WTD";
-       // record.changeFunds(record.accountID, record.otherAccountID, amount, willDeposit);
+        record.changeFunds(record.accountID, record.otherAccountID, amount, willDeposit);
         return record;
     }
 
     // show the change funds be in Transaction
     // I think I need the DBManager to be able to change funds
 
-    /*
-    public int changeFunds(int accountID, int otherAccountID, int amount, boolean willDeposit) throws SQLException
+
+    public void changeFunds(int accountID, int otherAccountID, int amount, boolean willDeposit) throws SQLException
     {
+        Maria_DBManager accounts = new Maria_DBManager();
+
         if(willDeposit == true){
             // Need to get SQL record with Account ID 1 and Account ID 2 and need to modify amount
-            Maria_DBManager accounts = new Maria_DBManager();
+            accounts.changeFunds(accountID, -1*amount);
+            accounts.changeFunds(otherAccountID, amount);
         }
         else{
             // Same logic but funds are modified in reverse
+            accounts.changeFunds(accountID, amount);
+            accounts.changeFunds(otherAccountID, -1*amount);
         }
     }
-*/
+
 
     // Time Stamp Functions
     public void makeTimestamp(){
