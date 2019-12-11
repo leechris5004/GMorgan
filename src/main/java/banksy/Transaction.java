@@ -46,6 +46,7 @@ public class Transaction {
             System.out.println(e.getMessage());
         }
 
+        record.amount = amount;
         record.timestamp = new Timestamp(System.currentTimeMillis());
         record.transactionType = willDeposit == true ? "DEP" : "WTD";
         record.changeFunds(record.accountID, record.otherAccountID, amount, willDeposit);
@@ -54,7 +55,6 @@ public class Transaction {
 
     // show the change funds be in Transaction
     // I think I need the DBManager to be able to change funds
-
 
     public void changeFunds(int accountID, int otherAccountID, int amount, boolean willDeposit) throws SQLException
     {
@@ -72,7 +72,6 @@ public class Transaction {
         }
     }
 
-
     // Time Stamp Functions
     public void makeTimestamp(){
         //makes a timestamp
@@ -82,5 +81,4 @@ public class Transaction {
     public void printCurrentTimestamp(){
         System.out.println(sdf.format(this.timestamp));
     }
-
 }
