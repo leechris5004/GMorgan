@@ -108,6 +108,17 @@ public class Maria_DBManager implements DBManager {
       return (results.next());
     }
 
+    public boolean doesUserExist(int uid) throws SQLException {
+        String sql = "SELECT * FROM users WHERE userID = ?";
+        PreparedStatement  prepStmt;
+
+        prepStmt = conn.prepareStatement(sql);
+        prepStmt.setInt(1,uid);
+        ResultSet results = prepStmt.executeQuery();
+        return (results.next());
+    }
+
+
     public void doesUserExist(String fname, String lname) {
         String sql = " SELECT COUNT(1) FROM users WHERE user_first =" + fname + " AND " + "user_last =" + lname;
     }
@@ -163,6 +174,15 @@ public class Maria_DBManager implements DBManager {
         ResultSet results = prepStmt.executeQuery();
         return(results.next());
     }
+    public boolean doesAccountExist(int aid) throws SQLException {
+        String sql = "SELECT * FROM accounts WHERE accountID = ?";
+        PreparedStatement  prepStmt;
+
+        prepStmt = conn.prepareStatement(sql);
+        prepStmt.setInt(1,aid);
+        ResultSet results = prepStmt.executeQuery();
+        return (results.next());
+    }
 
     public void printaccounts() throws SQLException {
         String sql = "Select * from accounts";
@@ -173,6 +193,16 @@ public class Maria_DBManager implements DBManager {
             System.out.println(results.getString("accountType") + ", " +
                     results.getString("amount"));
         }
+    }
+
+    public void assignAccount(int userID, int AccountID) throws SQLException {
+        if (!doesUserExist(userID)){
+            System.out.println("This user does not exist. Not assigning account.");
+        }else{
+
+        }
+
+
     }
 
     //etc
