@@ -23,6 +23,7 @@ public class Maria_DBManager implements DBManager {
                 "jdbc:mysql://ec2-52-202-114-229.compute-1.amazonaws.com:3306/banksy", USER, PASS);
     }
 
+    //Server Connection Functions
     public void disconnectFromServer() {
     	try {
             if (conn != null) {
@@ -72,6 +73,7 @@ public class Maria_DBManager implements DBManager {
 
 	}
 
+	//User Table Functions
 	public void printusers() throws SQLException {
     String sql = "Select * from users";
     Statement stmt;
@@ -96,15 +98,6 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
-    public void generateAccounts(int num_accounts) throws SQLException {
-        Account a = new Account();
-        for(int i = 0; i < num_accounts; i++)
-        {
-            Account new_account = a.generateAccount();
-            addAccount(new_account.getAccountType(), new_account.getAmount());
-        }
-    }
-
 	public boolean doesUserExist(String email) throws SQLException {
         String sql = "SELECT * FROM users WHERE user_email = ?";
         PreparedStatement  prepStmt;
@@ -117,20 +110,6 @@ public class Maria_DBManager implements DBManager {
 
     public void doesUserExist(String fname, String lname) {
         String sql = " SELECT COUNT(1) FROM users WHERE user_first =" + fname + " AND " + "user_last =" + lname;
-    }
-
-    public void addAccount(String accountType, int amount) throws SQLException {
-        String sql = "Insert into accounts(accountType, amount)"  + "Values(?,?)";
-
-        PreparedStatement prepStmt = conn.prepareStatement(sql);
-        prepStmt.setString(1, accountType);
-        prepStmt.setInt(2, amount);
-        try {
-            prepStmt.executeUpdate();
-        }
-        catch(Exception e){
-            System.out.println("That account already exists.");
-        }
     }
 
     public void addUser(String firstName, String lastName, String email, String ssn, String address) throws SQLException {
@@ -150,7 +129,43 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
+    //Account Table Functions
+    public void addAccount(String accountType, int amount) throws SQLException {
+        String sql = "Insert into accounts(accountType, amount)"  + "Values(?,?)";
 
+        PreparedStatement prepStmt = conn.prepareStatement(sql);
+        prepStmt.setString(1, accountType);
+        prepStmt.setInt(2, amount);
+        try {
+            prepStmt.executeUpdate();
+        }
+        catch(Exception e){
+            System.out.println("That account already exists.");
+        }
+    }
+
+    public void generateAccounts(int num_accounts) throws SQLException {
+        Account a = new Account();
+        for(int i = 0; i < num_accounts; i++)
+        {
+            Account new_account = a.generateAccount();
+            addAccount(new_account.getAccountType(), new_account.getAmount());
+        }
+    }
+
+    public boolean doesAccountExist(String accountType, int amount) throws SQLException
+    {
+        String sql = "SELECT * FROM accounts WHERE accountType = ? AND amount = ?";
+        PreparedStatement prepStmt;
+
+        prepStmt = conn.prepareStatement(sql);
+        prepStmt.setString(1,accountType);
+        prepStmt.setInt(2, amount);
+        ResultSet results = prepStmt.executeQuery();
+        return(results.next());
+    }
+
+    //etc
     public void changeFunds(int amount){
 
     }
