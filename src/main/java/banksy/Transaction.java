@@ -1,45 +1,41 @@
 package banksy;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 /* Transaction is called by main to manage transactions.
 In the future, it may have concurrency capabilities.
  */
 public class Transaction {
 
-    protected int userID;
     protected int accountID;
     protected int amount; //Positive amount means deposit, Negative amount means withdraw of some sort
     protected int otherAccountID; //NULL default, given a value if sending or taking money from account
     protected String depositType; //
     protected Timestamp timestamp;
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
 
     public void CreateTransaction(int userID, int accountID, int amount) {
         //Active Transactions
         //Simply creates the information for the transaction
         Transaction record = new Transaction();
-        this.userID = userID;
         this.accountID = accountID;
         this.amount = amount;
         this.timestamp = new Timestamp(System.currentTimeMillis());
         record.checkType();
-
-
-
     }
 
     public void checkType(){//simply checks the type
-        if(this.amount > 0){
-            this.depositType = "Deposit";
-        }
-        else{
-            this.depositType = "Withdraw";
-        }
-
+        this.depositType =  this.amount > 0 ? "DEP" : "WTD" ;
     }
 
     public void makeTimestamp(){
         //makes a timestamp
+        this.timestamp = new Timestamp(System.currentTimeMillis());
+    }
+
+    public void printCurrentTimestamp(){
+        System.out.println(sdf.format(this.timestamp));
     }
 
     public boolean checkUserID(String userID){
