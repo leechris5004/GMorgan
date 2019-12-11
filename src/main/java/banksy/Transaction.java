@@ -48,12 +48,14 @@ public class Transaction {
 
         record.timestamp = new Timestamp(System.currentTimeMillis());
         record.transactionType = willDeposit == true ? "DEP" : "WTD";
-        record.changeFunds(record.accountID, record.otherAccountID, amount, willDeposit);
+       // record.changeFunds(record.accountID, record.otherAccountID, amount, willDeposit);
         return record;
     }
 
     // show the change funds be in Transaction
     // I think I need the DBManager to be able to change funds
+
+    /*
     public int changeFunds(int accountID, int otherAccountID, int amount, boolean willDeposit) throws SQLException
     {
         if(willDeposit == true){
@@ -64,7 +66,7 @@ public class Transaction {
             // Same logic but funds are modified in reverse
         }
     }
-
+*/
 
     // Time Stamp Functions
     public void makeTimestamp(){

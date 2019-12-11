@@ -246,8 +246,11 @@ public class Maria_DBManager implements DBManager {
         prepStmt = conn.prepareStatement(sql);
         prepStmt.setInt(1,amount);
         prepStmt.setInt(2,account);
+        prepStmt.executeUpdate();
     }
     }
+
+
 
 	@Override
 	public void createRegistrationTable(String fileName) throws IOException {

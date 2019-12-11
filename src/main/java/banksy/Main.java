@@ -22,6 +22,7 @@ public class Main {
 	public static void main(String[] args) throws IOException, SQLException {
 	Maria_DBManager	banksyAccess = new Maria_DBManager();
 
+	//banksyAccess.changeFunds(3,-40);
 	//System.out.println(banksyAccess.getUserID("vickie.will@yahoo.com"));
 //	banksyAccess.addAccount("DEP",0);
 //    banksyAccess.generateAccounts(10);
