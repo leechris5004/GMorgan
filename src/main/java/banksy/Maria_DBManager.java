@@ -326,7 +326,7 @@ public class Maria_DBManager implements DBManager {
         userinfo.add(results.getString(4));
         return userinfo;
     }
-    public List<String> geTransactionInfo(int tID) throws SQLException {
+    public List<String> getTransactionInfo(int tID) throws SQLException {
 
         PreparedStatement prepStmt;
 
