@@ -98,6 +98,18 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
+    public int countUsers() throws SQLException {
+
+        String sql = "Select count(*) as total from users";
+        PreparedStatement  prepStmt;
+
+        prepStmt = conn.prepareStatement(sql);
+
+        ResultSet results = prepStmt.executeQuery();
+        results.next();
+        return results.getInt("total");
+    }
+
     public void generateUser(int num_users) throws SQLException {
         User u = new User();
         for(int i = 0; i < num_users; i++)
