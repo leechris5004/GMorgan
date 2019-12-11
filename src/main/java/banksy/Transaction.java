@@ -21,24 +21,32 @@ public class Transaction {
 
     }
 
-    // Added another constructor
     public Transaction(int accountID, int amount){
         this.accountID = accountID;
         this.amount = amount;
     }
 
-    public void CreateTransaction(int accountID, int amount) throws SQLException {
+    public Transaction CreateTransaction(int accountID, int amount) throws SQLException {
         //Active Transactions
         //Simply creates the information for the transaction
         Transaction record = new Transaction();
         Maria_DBManager accountTable = new Maria_DBManager();
 
         // Changed references to new transaction record instead of current one
-        record.accountID = accountID;
+        //record.accountID = accountTable.doesAccountExist(accountID) ? accountID : null;
+        try {
+            if (accountTable.doesAccountExist(accountID) == true) {
+                record.accountID = accountID;
+            }
+        }
+        catch(NullPointerException e){
+            System.out.println(e.getMessage());
+        }
+
         record.amount = amount;
         record.timestamp = new Timestamp(System.currentTimeMillis());
         record.checkType();
-
+        return record;
     }
 
     // Deposit Type Functions
