@@ -440,8 +440,7 @@ public class Maria_DBManager implements DBManager {
     }
 
     public boolean passwordCheck(String email, String password) throws SQLException {
-        boolean b = passwordCheck(getUserID(email), password);
-        return b;
+        return passwordCheck(getUserID(email), password);
     }
 
 

@@ -85,6 +85,19 @@ input[type=text], input[type=password] {
   box-sizing: border-box;
 }
 
+.btn-group button {
+  background-color: #4CAF50; /* Green background */
+  border: 1px solid green; /* Green border */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+}
+
+.btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
 input[type=button] {
   background-color: #4CAF50;
   color: white;
@@ -92,7 +105,7 @@ input[type=button] {
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  width: 100%;
+  width: 50%;
 }
 
 input[type=button]:hover {

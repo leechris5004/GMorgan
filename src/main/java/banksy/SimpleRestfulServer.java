@@ -17,10 +17,11 @@ import org.apache.log4j.Logger;
 public class SimpleRestfulServer {
 
     private static final Logger logger = Logger.getLogger(SimpleRestfulServer.class.getName());
-
+    private static Maria_DBManager db;
     private ConnectionSource connectionSource;
 
     public static void main(String[] args) throws SQLException {
+        db = new Maria_DBManager();
         new SimpleRestfulServer();
     }
 
@@ -42,18 +43,24 @@ public class SimpleRestfulServer {
                 logger.info("received post request /login");
                 String email = request.queryParams("email");
                 String password = request.queryParams("password");
-                int code;
                 String msg;
-                if (true) {
-                    msg = String.format("SUCCESS: Login successful for user=%s password=%s", email, password);
-                    code = 201;
-                } else {
-                    msg = String.format("FAILURE: user=%s password=%s was not found", email, password);
-                    code = 500;
+                String success = "";
+                try {
+                    if (db.passwordCheck(email, password)) {
+                        msg = String.format("SUCCESS: Login successful for user=%s password=%s", email, password);
+                        success = "true";
+                    } else {
+                        msg = String.format("FAILURE: user=%s password=%s was not found", email, password);
+                        success = "false";
+                    }
+                    response.status(201);
+                    logger.info(msg);
+                } catch (SQLException e) {
+                    msg = String.format("FAILURE: Could not retrieve data from database");
+                    response.status(500);
+                    logger.error(msg, e);
                 }
-                logger.info(msg);
-                response.status(code);
-                return code == 201 ? "true" : "false";
+                return success;
             }
         });
 

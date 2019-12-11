@@ -16,7 +16,7 @@ $(document).ready(function() {
                     $('#error').text("Invalid Username or Password");
                 }
             }).fail(function() {
-                console.log("Post request has failed");
+                $('#error').text("Login feature is currently not available.");
             });
         }
     });
