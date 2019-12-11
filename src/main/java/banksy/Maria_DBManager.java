@@ -96,6 +96,15 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
+    public void generateAccounts(int num_accounts) throws SQLException {
+        Account a = new Account();
+        for(int i = 0; i < num_accounts; i++)
+        {
+            Account new_account = a.generateAccount();
+            addAccount(new_account.getAccountType(), new_account.getAmount());
+        }
+    }
+
 	public boolean doesUserExist(String email) throws SQLException {
         String sql = "SELECT * FROM users WHERE user_email = ?";
         PreparedStatement  prepStmt;
@@ -108,6 +117,20 @@ public class Maria_DBManager implements DBManager {
 
     public void doesUserExist(String fname, String lname) {
         String sql = " SELECT COUNT(1) FROM users WHERE user_first =" + fname + " AND " + "user_last =" + lname;
+    }
+
+    public void addAccount(String accountType, int amount) throws SQLException {
+        String sql = "Insert into accounts(accountType, amount)"  + "Values(?,?)";
+
+        PreparedStatement prepStmt = conn.prepareStatement(sql);
+        prepStmt.setString(1, accountType);
+        prepStmt.setInt(2, amount);
+        try {
+            prepStmt.executeUpdate();
+        }
+        catch(Exception e){
+            System.out.println("That account already exists.");
+        }
     }
 
     public void addUser(String firstName, String lastName, String email, String ssn, String address) throws SQLException {

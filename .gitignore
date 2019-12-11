@@ -80,3 +80,7 @@ fabric.properties
 Banksy.db
 
 *.db
+
+.idea/
+
+GMorgan.iml
