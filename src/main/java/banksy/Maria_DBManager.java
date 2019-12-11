@@ -195,14 +195,21 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
-    public void assignAccount(int userID, int AccountID) throws SQLException {
-        if (!doesUserExist(userID)){
+    public void assignAccount(int userID, int accountID) throws SQLException {
+        PreparedStatement prepStmt;
+        if (!doesUserExist(userID) || !doesAccountExist(accountID)){
             System.out.println("This user does not exist. Not assigning account.");
         }else{
+            String sql = "update accounts set userID = ? where accountID = ?";
+
+            prepStmt = conn.prepareStatement(sql);
+
+            prepStmt.setInt(1, userID);
+            prepStmt.setInt(2, accountID);
+
+            prepStmt.executeUpdate();
 
         }
-
-
     }
 
     //etc
