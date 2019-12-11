@@ -12,7 +12,7 @@ public class Transaction {
     protected int accountID;
     protected int amount; //Positive amount means deposit, Negative amount means withdraw of some sort
     protected int otherAccountID; //NULL default, given a value if sending or taking money from account
-    protected String depositType; //
+    protected String transactionType; //
     protected Timestamp timestamp;
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
 
@@ -21,38 +21,50 @@ public class Transaction {
 
     }
 
-    public Transaction(int accountID, int amount){
+    public Transaction(int accountID, int otherAccountID, int amount){
         this.accountID = accountID;
+        this.otherAccountID = otherAccountID;
         this.amount = amount;
     }
 
-    public Transaction CreateTransaction(int accountID, int amount) throws SQLException {
+    public Transaction CreateTransaction(int accountID, int otherAccountID, int amount, boolean willDeposit) throws SQLException {
         //Active Transactions
         //Simply creates the information for the transaction
-        Transaction record = new Transaction();
         Maria_DBManager accountTable = new Maria_DBManager();
+        Transaction record = new Transaction();
 
         // Changed references to new transaction record instead of current one
         //record.accountID = accountTable.doesAccountExist(accountID) ? accountID : null;
         try {
-            if (accountTable.doesAccountExist(accountID) == true) {
+            if (accountTable.doesAccountExist(accountID) == true && accountTable.doesAccountExist(otherAccountID) == true) {
                 record.accountID = accountID;
+                record.otherAccountID = otherAccountID;
             }
         }
         catch(NullPointerException e){
+            System.out.println("One of the two accounts do not exist in the Accounts Table");
             System.out.println(e.getMessage());
         }
 
-        record.amount = amount;
         record.timestamp = new Timestamp(System.currentTimeMillis());
-        record.checkType();
+        record.transactionType = willDeposit == true ? "DEP" : "WTD";
+        record.changeFunds(record.accountID, record.otherAccountID, amount, willDeposit);
         return record;
     }
 
-    // Deposit Type Functions
-    public void checkType(){//simply checks the type
-        this.depositType =  this.amount > 0 ? "DEP" : "WTD" ;
+    // show the change funds be in Transaction
+    // I think I need the DBManager to be able to change funds
+    public int changeFunds(int accountID, int otherAccountID, int amount, boolean willDeposit) throws SQLException
+    {
+        if(willDeposit == true){
+            // Need to get SQL record with Account ID 1 and Account ID 2 and need to modify amount
+            Maria_DBManager accounts = new Maria_DBManager();
+        }
+        else{
+            // Same logic but funds are modified in reverse
+        }
     }
+
 
     // Time Stamp Functions
     public void makeTimestamp(){
