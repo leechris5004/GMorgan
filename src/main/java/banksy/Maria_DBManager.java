@@ -367,7 +367,7 @@ public class Maria_DBManager implements DBManager {
     public void changeFunds(int account, int amount) throws SQLException {
         PreparedStatement prepStmt;
     if(!doesAccountExist(account)){
-        System.out.println("Account does not exist");
+        System.out.println("Account does not exist at " + account);
     }else{
         String sql = "update accounts set amount = amount + ? where AccountId = ?";
 
