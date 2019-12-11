@@ -153,8 +153,7 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
-    public boolean doesAccountExist(String accountType, int amount) throws SQLException
-    {
+    public boolean doesAccountExist(String accountType, int amount) throws SQLException {
         String sql = "SELECT * FROM accounts WHERE accountType = ? AND amount = ?";
         PreparedStatement prepStmt;
 
@@ -163,6 +162,17 @@ public class Maria_DBManager implements DBManager {
         prepStmt.setInt(2, amount);
         ResultSet results = prepStmt.executeQuery();
         return(results.next());
+    }
+
+    public void printaccounts() throws SQLException {
+        String sql = "Select * from accounts";
+        Statement stmt;
+        stmt = conn.createStatement();
+        ResultSet results = stmt.executeQuery(sql);
+        while (results.next()) {
+            System.out.println(results.getString("accountType") + ", " +
+                    results.getString("amount"));
+        }
     }
 
     //etc
