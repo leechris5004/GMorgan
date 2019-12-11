@@ -51,6 +51,8 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Maven: com.github.javafaker:javafaker:0.16" level="project" />
+    <orderEntry type="library" name="Maven: org.yaml:snakeyaml:android:1.20" level="project" />
     <orderEntry type="library" name="Maven: com.sparkjava:spark-core:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-server:9.0.2.v20130417" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty.orbit:javax.servlet:3.0.0.v201112011016" level="project" />

@@ -97,10 +97,6 @@ public class Maria_DBManager implements DBManager {
       return (results.next());
     }
 
-    public void doesUserExist(String fname, String lname) {
-        String sql = " SELECT COUNT(1) FROM users WHERE user_first =" + fname + " AND " + "user_last =" + lname;
-    }
-
     public void addUser(String firstName, String lastName, String email, String ssn, String address) throws SQLException {
         String sql = "Insert into users(user_first, user_last, user_ssn, user_address,user_email)"  + "Values(?,?,?,?,?)";
 
@@ -118,8 +114,39 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
+    public void addAccount(int userID, String type, int amount) throws SQLException {
+        String sql = "Insert into accounts(userID, accountType, amount)"  + "Values(?,?,?)";
 
-    public void changeFunds(int amount){
+        PreparedStatement prepStmt = conn.prepareStatement(sql);
+        prepStmt.setInt(1,userID);
+        prepStmt.setString(2, type);
+        prepStmt.setInt(3, amount);
+        try {
+            prepStmt.executeUpdate();
+        }
+        catch(Exception e){
+            System.out.println("That account already exists.");
+        }
+    }
+
+    public void addTransaction(int firstAccount, int secondAccount, int amount, String type, Date tdate) throws SQLException {
+        String sql = "Insert into transactions(accountID , otherAccountID , amount, depositType, transactiontime)"  + "Values(?,?,?,?,?)";
+
+        PreparedStatement prepStmt = conn.prepareStatement(sql);
+        prepStmt.setInt(1,a);
+        prepStmt.setString(2, type);
+        prepStmt.setInt(3, amount);
+        try {
+            prepStmt.executeUpdate();
+        }
+        catch(Exception e){
+            System.out.println("That account already exists.");
+        }
+    }
+
+
+
+    public void changeFunds(int account, int amount){
 
     }
 
