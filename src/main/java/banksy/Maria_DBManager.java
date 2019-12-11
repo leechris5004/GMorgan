@@ -202,18 +202,20 @@ public class Maria_DBManager implements DBManager {
         String sql = " SELECT COUNT(1) FROM users WHERE user_first =" + fname + " AND " + "user_last =" + lname;
     }
 
-    public void addTransaction(int first, int second, int amount) throws SQLException {
-        String sql = "Insert into transactions(accountID, otherAccountID, amount)"
-                + "Values(?,?,?)";
+    public void addTransaction(int first, int second, int amount, String deposit) throws SQLException {
+        String sql = "Insert into transactions(accountID, otherAccountID, amount, depositType)"
+                + "Values(?,?,?,?)";
 
         PreparedStatement prepStmt = conn.prepareStatement(sql);
         prepStmt.setInt(1, first);
         prepStmt.setInt(2, second);
         prepStmt.setInt(3, amount);
+        prepStmt.setString(4, deposit);
         try {
             prepStmt.executeUpdate();
         }
         catch(Exception e){
+
             System.out.println("Error adding transaction.");
         }
     }
@@ -411,7 +413,7 @@ public class Maria_DBManager implements DBManager {
 
     }
 
-    public void setPassword(int user, String password) throws SQLException {
+    public void setPassword(int user, String password, Timestamp timestamp) throws SQLException {
         String hashed = hashit(password);
         PreparedStatement prepStmt;
         if(!doesUserExist(user)){
@@ -421,6 +423,7 @@ public class Maria_DBManager implements DBManager {
             prepStmt = conn.prepareStatement(sql);
             prepStmt.setString(1,hashed);
             prepStmt.setInt(2,user);
+            prepStmt.setTimestamp(3, timestamp);
             prepStmt.executeUpdate();
         }
 

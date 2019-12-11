@@ -1,5 +1,7 @@
 package banksy;
 
+import com.j256.ormlite.stmt.BaseArgumentHolder;
+
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -21,11 +23,19 @@ public class Main {
 */
 	public static void main(String[] args) throws IOException, SQLException {
 	Maria_DBManager	banksyAccess = new Maria_DBManager();
-	System.out.println(banksyAccess.getUserInfo(15));
-
+	//System.out.println(banksyAccess.getUserInfo(15));
+	for(int i = 1; i < banksyAccess.countAccounts(); i++)
+		System.out.println(banksyAccess.getAccountInfo(i));
+	Transaction t = new Transaction();
+	Transaction[] transactions = t.generateRandomTransactions(50);
+	for(Transaction transaction:transactions)
+	{
+		banksyAccess.addTransaction(transaction.accountID, transaction.otherAccountID, transaction.amount, transaction.transactionType);
+	}
+	
 	//banksyAccess.setPassword(14, "password");
 	//System.out.println(banksyAccess.realPasswordCheck(14,"password"));
-	System.out.println(banksyAccess.countUsers());
+	//System.out.println(banksyAccess.countUsers());
 
 
 	//banksyAccess.changeFunds(3,-40);
