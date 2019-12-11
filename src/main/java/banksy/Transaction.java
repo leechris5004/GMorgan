@@ -16,8 +16,7 @@ public class Transaction {
     protected int amount; //Positive amount means deposit, Negative amount means withdraw of some sort
     protected int otherAccountID; //NULL default, given a value if sending or taking money from account
     protected String transactionType; //
-    protected Timestamp timestamp;
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+    private Random rand = new Random();
 
     public Transaction() {
 
@@ -49,7 +48,6 @@ public class Transaction {
         }
 
         record.amount = amount;
-        record.timestamp = new Timestamp(System.currentTimeMillis());
         record.transactionType = willDeposit == true ? "DEP" : "WTD";
         record.changeFunds(record.accountID, record.otherAccountID, amount, willDeposit);
         return record;
@@ -72,8 +70,7 @@ public class Transaction {
 
     public int generateRandomAccountID(int bound)
     {
-        Random rand = new Random();
-        int account = rand.nextInt(bound);
+        int account = rand.nextInt(bound) + 1;
         return account;
     }
 
@@ -81,27 +78,17 @@ public class Transaction {
         Maria_DBManager accounts = new Maria_DBManager();
         //Will use a function to bound the Random Numbers to User accounts
         Transaction[] transactions = new Transaction[num_transactions];
-        int bounds = accounts.countUsers();
-        Random rand = new Random();
+        int bounds = accounts.countAccounts(); //Ten Accounts
         for(int transaction_number = 0; transaction_number < num_transactions; transaction_number++)
         {
             int account1 = generateRandomAccountID(bounds);
             int account2 = generateRandomAccountID(bounds);
             while(account1 == account2) {
                 account2 = generateRandomAccountID(bounds);
+                System.out.println("Collision occurred at: " + account2);
             }
-            transactions[transaction_number] = CreateTransaction(account1,account2,rand.nextInt(), rand.nextInt()%2==0 ? true:false);
+            transactions[transaction_number] = CreateTransaction(account1,account2, rand.nextInt(100000), rand.nextInt()%2==0 ? true:false);
         }
         return transactions;
-    }
-
-    // Time Stamp Functions
-    public void makeTimestamp(){
-        //makes a timestamp
-        this.timestamp = new Timestamp(System.currentTimeMillis());
-    }
-
-    public void printCurrentTimestamp(){
-        System.out.println(sdf.format(this.timestamp));
     }
 }

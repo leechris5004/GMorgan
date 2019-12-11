@@ -202,7 +202,26 @@ public class Maria_DBManager implements DBManager {
         String sql = " SELECT COUNT(1) FROM users WHERE user_first =" + fname + " AND " + "user_last =" + lname;
     }
 
-    public void addTransaction(int first, int second, int amount) throws SQLException {
+    public void addTransaction(int first, int second, int amount, String deposit) throws SQLException {
+        String sql = "Insert into transactions(accountID, otherAccountID, amount, depositType)"
+                + "Values(?,?,?,?)";
+
+        PreparedStatement prepStmt = conn.prepareStatement(sql);
+        prepStmt.setInt(1, first);
+        prepStmt.setInt(2, second);
+        prepStmt.setInt(3, amount);
+        prepStmt.setString(4, deposit);
+        try {
+            prepStmt.executeUpdate();
+        }
+        catch(Exception e){
+
+            System.out.println("Error adding transaction.");
+        }
+    }
+
+    public void realTransaction(int first, int second, int amount) throws SQLException {
+
         String sql = "Insert into transactions(accountID, otherAccountID, amount)"
                 + "Values(?,?,?)";
 
@@ -212,6 +231,8 @@ public class Maria_DBManager implements DBManager {
         prepStmt.setInt(3, amount);
         try {
             prepStmt.executeUpdate();
+            changeFunds(first, -amount);
+            changeFunds(second, amount);
         }
         catch(Exception e){
             System.out.println("Error adding transaction.");
@@ -291,6 +312,17 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
+    public int countAccounts() throws SQLException {
+
+        String sql = "Select count(*) as total from accounts";
+        PreparedStatement  prepStmt;
+
+        prepStmt = conn.prepareStatement(sql);
+
+        ResultSet results = prepStmt.executeQuery();
+        results.next();
+        return results.getInt("total");
+    }
     public void assignAccount(int userID, int accountID) throws SQLException {
         PreparedStatement prepStmt;
         if (!doesUserExist(userID) || !doesAccountExist(accountID)){
@@ -356,7 +388,7 @@ public class Maria_DBManager implements DBManager {
     public void changeFunds(int account, int amount) throws SQLException {
         PreparedStatement prepStmt;
     if(!doesAccountExist(account)){
-        System.out.println("Account does not exist");
+        System.out.println("Account does not exist at " + account);
     }else{
         String sql = "update accounts set amount = amount + ? where AccountId = ?";
 
@@ -366,6 +398,8 @@ public class Maria_DBManager implements DBManager {
         prepStmt.executeUpdate();
     }
     }
+
+
 
     public String hashit(String plaintext) {
         try {
@@ -400,7 +434,7 @@ public class Maria_DBManager implements DBManager {
 
     }
 
-    public void setPassword(int user, String password) throws SQLException {
+    public void setPassword(int user, String password, Timestamp timestamp) throws SQLException {
         String hashed = hashit(password);
         PreparedStatement prepStmt;
         if(!doesUserExist(user)){
@@ -410,6 +444,7 @@ public class Maria_DBManager implements DBManager {
             prepStmt = conn.prepareStatement(sql);
             prepStmt.setString(1,hashed);
             prepStmt.setInt(2,user);
+            prepStmt.setTimestamp(3, timestamp);
             prepStmt.executeUpdate();
         }
 
