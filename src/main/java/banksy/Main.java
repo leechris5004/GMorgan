@@ -25,8 +25,8 @@ public class Main {
 	//banksyAccess.setPassword(14, "password");
 	//System.out.println(banksyAccess.realPasswordCheck(14,"password"));
 	System.out.println(banksyAccess.countUsers());
-	//Transaction t = new Transaction(3,1,100);
-//	t.CreateTransaction(3,1,100, true);
+	Transaction t = new Transaction(3,1,100);
+	t.CreateTransaction(3,1,100, true);
 
 	//banksyAccess.changeFunds(3,-40);
 	//System.out.println(banksyAccess.getUserID("vickie.will@yahoo.com"));

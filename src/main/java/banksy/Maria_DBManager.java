@@ -160,6 +160,22 @@ public class Maria_DBManager implements DBManager {
         String sql = " SELECT COUNT(1) FROM users WHERE user_first =" + fname + " AND " + "user_last =" + lname;
     }
 
+    public void addTransaction(int first, int second, int amount) throws SQLException {
+        String sql = "Insert into transactions(accountID, otherAccountID, amount)"
+                + "Values(?,?,?)";
+
+        PreparedStatement prepStmt = conn.prepareStatement(sql);
+        prepStmt.setInt(1, first);
+        prepStmt.setInt(2, second);
+        prepStmt.setInt(3, amount);
+        try {
+            prepStmt.executeUpdate();
+        }
+        catch(Exception e){
+            System.out.println("Error adding transaction.");
+        }
+    }
+
     public void addUser(String firstName, String lastName, String email, String ssn, String address) throws SQLException {
         String sql = "Insert into users(user_first, user_last, user_ssn, user_address,user_email)"  + "Values(?,?,?,?,?)";
 
