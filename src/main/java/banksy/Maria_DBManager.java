@@ -230,10 +230,23 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
+    public void assignAccount(String email, int accountID) throws SQLException {
+        int userID = getUserID(email);
+        assignAccount(userID,accountID);
+    }
 
     //etc
-    public void changeFunds(int amount){
+    public void changeFunds(int account, int amount) throws SQLException {
+        PreparedStatement prepStmt;
+    if(!doesAccountExist(account)){
+        System.out.println("Account does not exist");
+    }else{
+        String sql = "update accounts set amount = amount + ? where AccountId = ?";
 
+        prepStmt = conn.prepareStatement(sql);
+        prepStmt.setInt(1,amount);
+        prepStmt.setInt(2,account);
+    }
     }
 
 	@Override
