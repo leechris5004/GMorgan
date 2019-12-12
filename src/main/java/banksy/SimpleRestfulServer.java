@@ -94,26 +94,22 @@ public class SimpleRestfulServer {
         });
 
 
-        // http://localhost:4567/accounts/:id
-        get(new Route("/accounts/:id") {
+        // http://localhost:4567/accounts/:email
+        get(new Route("/accounts/:email") {
             @Override
             public Object handle(Request request, Response response) {
                 logger.info("received get request /accounts");
-                String accountID = request.params(":id");
+                String email = request.params(":email");
                 String msg;
                 String success = "";
                 try {
-                    if (true) {
-                        msg = String.format("SUCCESS: Transaction successful for user=%s account=%s amount=%s", email, account, amount);
-                        success = "true";
-                    } else {
-                        msg = String.format("FAILURE: user=%s account=%s amount=%s was not found", email, account, amount);
-                        success = "false";
-                    }
+                    success = db.getAccountString(email);
+                    msg = String.format("SUCCESS obtained account data from email=%s", email);
                     response.status(201);
                     logger.info(msg);
                 } catch (SQLException e) {
-                    msg = String.format("FAILURE: Could not retrieve data from database");
+                    success = "false";
+                    msg = String.format("FAILURE: Could not retrieve data from email");
                     response.status(500);
                     logger.error(msg, e);
                 }
