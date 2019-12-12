@@ -118,6 +118,11 @@ input[type=number] {
   opacity: 0.8;
 }
 
+.table {
+  padding: 16px;
+}
+
+
 .container {
   padding: 16px;
 }

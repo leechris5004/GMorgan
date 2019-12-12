@@ -68,102 +68,43 @@ public class SimpleRestfulServer {
             @Override
             public Object handle(Request request, Response response) {
                 logger.info("received post request /add");
-                String email = request.queryParams("email");
-                String account = request.queryParams("account");
-                String amount = request.queryParams("amount");
+                int account = Integer.parseInt(request.queryParams("account"));
+                int amount = Integer.parseInt(request.queryParams("amount"));
                 String positive = request.queryParams("positive");
                 String msg;
-                String success = "";
                 try {
-                    if (db.passwordCheck(email, "password")) {
-                        msg = String.format("SUCCESS: Transaction successful for user=%s account=%s amount=%s", email, account, amount);
-                        success = "true";
-                    } else {
-                        msg = String.format("FAILURE: user=%s account=%s amount=%s was not found", email, account, amount);
-                        success = "false";
-                    }
+                    db.changeFunds(account, amount * (positive.equals("true") ? 1 : -1));
+                    msg = String.format("SUCCESS: Transaction successful for account=%s amount=%s", account, amount);
                     response.status(201);
                     logger.info(msg);
                 } catch (SQLException e) {
-                    msg = String.format("FAILURE: Could not retrieve data from database");
+                    msg = String.format("FAILURE: Could not change funds");
                     response.status(500);
                     logger.error(msg, e);
                 }
-                return success;
+                return "true";
             }
         });
 
-
-        // http://localhost:4567/accounts/:email
-        get(new Route("/accounts/:email") {
+        // http://localhost:4567/accounts
+        get(new Route("/accounts") {
             @Override
             public Object handle(Request request, Response response) {
                 logger.info("received get request /accounts");
-                String email = request.params(":email");
+                String email = request.queryParams("email");
                 String msg;
                 String success = "";
                 try {
                     success = db.getAccountString(email);
-                    msg = String.format("SUCCESS obtained account data from email=%s", email);
+                    msg = String.format("SUCCESS: Obtained account data from email=%s", email);
                     response.status(201);
                     logger.info(msg);
                 } catch (SQLException e) {
-                    success = "false";
-                    msg = String.format("FAILURE: Could not retrieve data from email");
+                    msg = String.format("FAILURE: Could not retrieve data from email=%s", email);
                     response.status(500);
                     logger.error(msg, e);
                 }
                 return success;
-            }
-        });
-
-        // http://localhost:4567/retrieveUser/1
-
-        get(new Route("/retrieveUser/:id") {
-            @Override
-            public Object handle(Request request, Response response) {
-                logger.info("received get request /retrieveUser/");
-                BankUser user = null;
-                try {
-                    user = userDao.queryForId(request.params(":id"));
-                    logger.info(String.format("retrieved user from DB: user=%s", user));
-                } catch (SQLException e) {
-                    logger.error(String.format("FAILED to retrieved user from DB: %s", e.getMessage()), e);
-                }
-                if (user != null) {
-                    return "User: " + user; // or JSON? :-)
-                } else {
-                    response.status(404); // 404 Not found
-                    return "404: User not found";
-                }
-            }
-        });
-
-
-        // http://localhost:4567/addUser?username=ron&email=ron@m3.com
-
-        get(new Route("/addUser") {
-            @Override
-            public Object handle(Request request, Response response) {
-                logger.info("received post request /addUser");
-                String username = request.queryParams("username");
-                String email = request.queryParams("email");
-                BankUser user = new BankUser(username, email);
-                logger.info("about to create: user=" + user);
-                int code;
-                String mesg;
-                try {
-                    userDao.create(user);
-                    mesg = String.format("SUCCESS: created new user in DB: user=%s", user);
-                    logger.info(mesg);
-                    code = 201;
-                } catch (SQLException e) {
-                    mesg = String.format("FAILED to create new user in DB: user=%s", user);
-                    logger.error(mesg, e);
-                    code = 500;
-                }
-                response.status(code);
-                return mesg;
             }
         });
     }
