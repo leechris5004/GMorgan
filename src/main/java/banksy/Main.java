@@ -25,15 +25,17 @@ public class Main {
 	//Get's 5 most recent transactions
 	banksyAccess.getMostRecentTransactions();
 	*/
-	String transactions = banksyAccess.getMostRecentTransactions(8);
+	String transactions = banksyAccess.getUserRecentTransactions("vickie.will@yahoo.com", 3);
 	System.out.print(transactions);
+
+
 
 	
 	//banksyAccess.setPassword(14, "password");
 	//System.out.println(banksyAccess.realPasswordCheck(14,"password"));
 	//System.out.println(banksyAccess.countUsers());
 
-		System.out.println(banksyAccess.getAccountString("vickie.will@yahoo.com"));
+		//System.out.println(banksyAccess.getAccountString("vickie.will@yahoo.com"));
 
 	//banksyAccess.changeFunds(3,-40);
 	//System.out.println(banksyAccess.getUserID("vickie.will@yahoo.com"));

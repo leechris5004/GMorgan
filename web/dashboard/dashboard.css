@@ -118,15 +118,19 @@ input[type=number] {
   opacity: 0.8;
 }
 
+.table {
+  padding: 16px;
+}
+
+
 .container {
   padding: 16px;
 }
 
 .error {
   float: left;
-  padding-top: 0px;
+  padding: 10px;
   font-size: 13px;
-  color: Red;
 }
 
 @media screen and (max-width: 300px) {

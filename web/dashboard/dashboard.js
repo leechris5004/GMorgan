@@ -1,43 +1,57 @@
 $(document).ready(function() {
+    function updateTable() {
+        $.get('http://localhost:4567/accounts', {email: User.email}).done(function(data) {
+            var list = data.split('\n');
+            for (var i = 0; i < list.length; i++) {
+                var temp = list[i].split(',');
+                $("#accounts").empty().append("<tr><td>"+temp[0]+"</td><td>"+temp[2]+"</td><td>"+temp[3]+"</td></tr>");
+            }
+        }).fail(function() {
+            console.log("Get request has failed");
+        });
+    }
+    function updateTransactions() {
+        $.get('http://localhost:4567/transactions', {email: User.email}).done(function(data) {
+            var list = data.split('\n');
+            for (var i = 0; i < list.length; i++) {
+                var temp = list[i].split(',');
+                $("#transactions").empty().append("<tr><td>"+temp[0]+"</td><td>"+temp[1]+"</td><td>"+temp[2]+"</td><td>"+temp[3]
+                    +"</td><td>"+temp[4]+"</td><td>"+temp[5]+"</td></tr>");
+            }
+        }).fail(function() {
+            console.log("Get request has failed");
+        });
+    }
+    User = {}
     var url = document.location.href,
-        params = url.split('?')[1].split('&'),
-        data = {}, tmp;
+        params = url.split('?')[1].split('&'), tmp;
     for (var i = 0, l = params.length; i < l; i++) {
          tmp = params[i].split('=');
-         data[tmp[0]] = decodeURIComponent(tmp[1]);
+         User[tmp[0]] = decodeURIComponent(tmp[1]);
     }
-    $.get('http://localhost:4567/accounts', {email: data.email}).done(function(data) {
-        var list = data.split('\n').split(',');
-        for (var i = 0; i < data.length; i++) {
-            console.log(list[i]);
-            $("#accounts").append("<tr><td></td><td></td><td></td></tr>");
-        }
-    }).fail(function() {
-        console.log("Get request has failed");
-    });
-
+    updateTable();
+    updateTransactions();
 
     $(".container").on("click", "#deposit", function() {
         $(".container").empty().append('<label class="action"><b>Deposit</b></label>',
+            '<input type="number" min="0" step="1" placeholder="Enter account ID" id="account" required>',
             '<input type="number" min="0.00" step="0.01" placeholder="Enter amount here ($)" id="amount" required>',
             '<div class="btn-group"><input type="button" id="acceptD" value="Enter"><input type="button" id="cancel" value="Cancel"></div>');
     });
 
     $(".container").on("click", "#withdraw", function() {
         $(".container").empty().append('<label class="action"><b>Withdraw</b></label>',
+            '<input type="number" min="0" step="1" placeholder="Enter account ID" id="account" required>',
             '<input type="number" min="0.00" step="0.01" placeholder="Enter amount here ($)" id="amount" required>',
             '<div class="btn-group"><input type="button" id="acceptW" value="Enter"><input type="button" id="cancel" value="Cancel"></div>');
     });
 
     $(".container").on("click", "#acceptD", function() {
-        var Email = $("#email").val();
         var Amount = $("#amount").val();
-        $.post('http://localhost:4567/add', {email: data.email, amount: Amount, positive: "true"}).done(function(data) {
-            if (data == 'true') {
-                $('#error').text("Transaction Successful.");
-            } else if (data == 'False') {
-                $('#error').text("Transaction Failed. Try again.");
-            }
+        var Account = $("#account").val();
+        $.post('http://localhost:4567/add', {account: Account, amount: Amount, positive: "true"}).done(function(data) {
+            $('#error').text("Transaction Successful.");
+            updateTable();
         }).fail(function() {
             console.log("Post request has failed");
         });
@@ -46,14 +60,11 @@ $(document).ready(function() {
     });
 
     $(".container").on("click", "#acceptW", function() {
-        var Email = $("#email").val();
         var Amount = $("#amount").val();
-        $.post('http://localhost:4567/remove', {email: data.email, amount: Amount, positive: "false"}).done(function(data) {
-            if (data == 'true') {
-                $('#error').text("Transaction Successful.");
-            } else if (data == 'False') {
-                $('#error').text("Transaction Failed. Try again.");
-            }
+        var Account = $("#account").val();
+        $.post('http://localhost:4567/add', {account: Account, amount: Amount, positive: "false"}).done(function(data) {
+            $('#error').text("Transaction Successful.");
+            updateTable();
         }).fail(function() {
             console.log("Post request has failed");
         });
