@@ -2,6 +2,7 @@ package banksy;
 
 import com.github.javafaker.Faker;
 
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.security.MessageDigest;
@@ -9,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 
 public class User {
-
+	public static final Logger LOGGER = Logger.getLogger(User.class.getName());
 	private String firstName;
 	private String lastName;
 	private String ssn;
@@ -22,6 +23,7 @@ public class User {
 	}
 
 	public User generateUser(){
+
 		//Return's a user object with certain constraints to populate a table.
 		//Generating a first name and last name
 
@@ -34,16 +36,16 @@ public class User {
 
 		//Generates the SSN for the user
 		String genSsn = faker.idNumber().ssnValid().replaceAll("[-]","");
-		System.out.println(genSsn);
+		LOGGER.info(genSsn);
 
 		//Generates the email for the user
 		String genEmail = faker.internet().emailAddress();
-		System.out.println(genEmail);
+		LOGGER.info(genEmail);
 
 
 		//Generates the address for the user.
 		String genAddress = faker.address().streetAddress();
-		System.out.println(genAddress);
+		LOGGER.info(genAddress);
 
 
 		User genUser = new User(firstName, lastName); //generate a user with these firstName and lastname

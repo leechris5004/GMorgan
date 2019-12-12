@@ -210,7 +210,6 @@ public class Maria_DBManager implements DBManager {
             prepStmt.executeUpdate();
         }
         catch(Exception e){
-
             LOGGER.info("Error adding transaction.");
         }
     }
