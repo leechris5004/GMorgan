@@ -210,12 +210,8 @@ public class Maria_DBManager implements DBManager {
             prepStmt.executeUpdate();
         }
         catch(Exception e){
-<<<<<<< HEAD
-            LOGGER.info("Error adding transaction.");
-=======
 
-            System.out.println("Error adding transaction.");
->>>>>>> a81b890cec277b61a76365364ed21b5572615bb5
+            LOGGER.info("Error adding transaction.");
         }
     }
 
