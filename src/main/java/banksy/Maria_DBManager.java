@@ -252,6 +252,8 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
+
+
     //======================================================================================================================
     //Account Table Functions
     public void addAccount(String accountType, int amount) throws SQLException {
@@ -546,5 +548,20 @@ public class Maria_DBManager implements DBManager {
         }//end try
         LOGGER.info("Goodbye!");
     }//end main
+
+    //======================================================================================================================
+    //Transaction Table Functions
+    public void getMostRecentTransactions() throws SQLException{
+        //Gets 5 most recent transactions
+        String sql = "Select * from transactions order by transactiontime desc limit 5;";
+        Statement stmt;
+        stmt = conn.createStatement();
+        ResultSet results = stmt.executeQuery(sql);
+        
+
+
+        
+
+    }
 
 }
