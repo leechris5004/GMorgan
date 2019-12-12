@@ -379,7 +379,7 @@ public class Maria_DBManager implements DBManager {
 
     public int getAccount(int userID) throws SQLException {
 
-        if(!doesAccountExist(userID))
+        if(!doesUserExist(userID))
         {
             LOGGER.info("Account Does not exist, getAccount");
             return 0;
@@ -496,6 +496,17 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
+    public int areWeRichYet() throws SQLException {
+        String sql = "select sum(amount) from accounts";
+
+        Statement stmt;
+
+        stmt = conn.prepareStatement(sql);
+
+        ResultSet results = stmt.executeQuery(sql);
+        results.next();
+        return results.getInt(1);
+    }
 
 
     public boolean passwordCheck(String email, String password) throws SQLException {
