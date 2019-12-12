@@ -116,8 +116,8 @@ public class SimpleRestfulServer {
                 String email = request.queryParams("email");
                 String msg;
                 String success = "";
-                /*try {
-                    //success = db.getUserRecentTransaction(email);
+                try {
+                    success = db.getUserRecentTransactions(email, 10);
                     msg = String.format("SUCCESS: Obtained transaction data from email=%s", email);
                     response.status(201);
                     logger.info(msg);
@@ -125,7 +125,7 @@ public class SimpleRestfulServer {
                     msg = String.format("FAILURE: Could not retrieve transaction data from email=%s", email);
                     response.status(500);
                     logger.error(msg, e);
-                }*/
+                }
                 return success;
             }
         });

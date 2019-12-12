@@ -10,6 +10,18 @@ $(document).ready(function() {
             console.log("Get request has failed");
         });
     }
+    function updateTransactions() {
+        $.get('http://localhost:4567/transactions', {email: User.email}).done(function(data) {
+            var list = data.split('\n');
+            for (var i = 0; i < list.length; i++) {
+                var temp = list[i].split(',');
+                $("#transactions").empty().append("<tr><td>"+temp[0]+"</td><td>"+temp[1]+"</td><td>"+temp[2]+"</td><td>"+temp[3]
+                    +"</td><td>"+temp[4]+"</td><td>"+temp[5]+"</td></tr>");
+            }
+        }).fail(function() {
+            console.log("Get request has failed");
+        });
+    }
     User = {}
     var url = document.location.href,
         params = url.split('?')[1].split('&'), tmp;
@@ -18,6 +30,7 @@ $(document).ready(function() {
          User[tmp[0]] = decodeURIComponent(tmp[1]);
     }
     updateTable();
+    updateTransactions();
 
     $(".container").on("click", "#deposit", function() {
         $(".container").empty().append('<label class="action"><b>Deposit</b></label>',
