@@ -379,17 +379,24 @@ public class Maria_DBManager implements DBManager {
 
     public int getAccount(int userID) throws SQLException {
 
-        PreparedStatement prepStmt;
+        if(!doesAccountExist(userID))
+        {
+            LOGGER.info("Account Does not exist, getAccount");
+            return 0;
+        }else {
 
-       String sql = "Select accounts.accountID from accounts where userID = ?";
-        prepStmt = conn.prepareStatement(sql);
+            PreparedStatement prepStmt;
 
-        prepStmt.setInt(1,userID);
+            String sql = "Select accounts.accountID from accounts where userID = ?";
+            prepStmt = conn.prepareStatement(sql);
 
-        ResultSet results = prepStmt.executeQuery();
+            prepStmt.setInt(1, userID);
 
-        results.next();
-        return results.getInt(1);
+            ResultSet results = prepStmt.executeQuery();
+
+            results.next();
+            return results.getInt(1);
+        }
     }
 
     public int getAccount(String email) throws SQLException {
@@ -557,11 +564,11 @@ public class Maria_DBManager implements DBManager {
         Statement stmt;
         stmt = conn.createStatement();
         ResultSet results = stmt.executeQuery(sql);
-        
 
 
-        
+
 
     }
+
 
 }
