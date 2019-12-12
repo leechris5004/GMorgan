@@ -70,6 +70,7 @@ public class SimpleRestfulServer {
                 logger.info("received post request /add");
                 String email = request.queryParams("email");
                 String amount = request.queryParams("amount");
+                String password = request.queryParams("password");
                 String msg;
                 String success = "";
                 try {
