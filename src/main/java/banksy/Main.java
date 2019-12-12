@@ -30,6 +30,7 @@ public class Main {
 	//System.out.println(banksyAccess.realPasswordCheck(14,"password"));
 	//System.out.println(banksyAccess.countUsers());
 
+		System.out.println(banksyAccess.getAccountString("vickie.will@yahoo.com"));
 
 	//banksyAccess.changeFunds(3,-40);
 	//System.out.println(banksyAccess.getUserID("vickie.will@yahoo.com"));

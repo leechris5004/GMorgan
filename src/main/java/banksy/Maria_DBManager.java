@@ -86,7 +86,7 @@ public class Maria_DBManager implements DBManager {
     stmt = conn.createStatement();
     ResultSet results = stmt.executeQuery(sql);
         while (results.next()) {
-            LOGGER.info(results.getString("user_email") + ", " +
+            System.out.println(results.getString("user_email") + ", " +
                     results.getString("user_first") + ", " +
                     results.getString("user_last") + ", " +
                     results.getString("user_address") + ", " +
@@ -94,7 +94,7 @@ public class Maria_DBManager implements DBManager {
 
         }
     }
-
+    
     public int countUsers() throws SQLException {
 
         String sql = "Select count(*) as total from users";
