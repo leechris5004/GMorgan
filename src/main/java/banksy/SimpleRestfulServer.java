@@ -93,6 +93,34 @@ public class SimpleRestfulServer {
             }
         });
 
+
+        // http://localhost:4567/accounts/:id
+        get(new Route("/accounts/:id") {
+            @Override
+            public Object handle(Request request, Response response) {
+                logger.info("received get request /accounts");
+                String accountID = request.params(":id");
+                String msg;
+                String success = "";
+                try {
+                    if (true) {
+                        msg = String.format("SUCCESS: Transaction successful for user=%s account=%s amount=%s", email, account, amount);
+                        success = "true";
+                    } else {
+                        msg = String.format("FAILURE: user=%s account=%s amount=%s was not found", email, account, amount);
+                        success = "false";
+                    }
+                    response.status(201);
+                    logger.info(msg);
+                } catch (SQLException e) {
+                    msg = String.format("FAILURE: Could not retrieve data from database");
+                    response.status(500);
+                    logger.error(msg, e);
+                }
+                return success;
+            }
+        });
+
         // http://localhost:4567/retrieveUser/1
 
         get(new Route("/retrieveUser/:id") {

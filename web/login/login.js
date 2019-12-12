@@ -10,7 +10,7 @@ $(document).ready(function() {
             $.post('http://localhost:4567/login', {email: Email, password: Password}).done(function(data) {
                 if (data == "true") {
                     $("form")[0].reset();
-                    location.href = '../dashboard/dashboard.html';
+                    location.href = '../dashboard/dashboard.html' + '?email=' + encodeURIComponent(Email);
                 } else if (data == "false") {
                     $('input[type="text"],input[type="password"]').css({"border":"2px solid red","box-shadow":"0 0 3px red"});
                     $('#error').text("Invalid Username or Password");

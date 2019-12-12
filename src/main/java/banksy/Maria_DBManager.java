@@ -570,13 +570,23 @@ public class Maria_DBManager implements DBManager {
     //======================================================================================================================
     //Transaction Table Functions
     public void getMostRecentTransactions() throws SQLException{
+        //(transactionID, accountID, otherAccountID, amount, depositType, transactiontime
         //Gets 5 most recent transactions
         String sql = "Select * from transactions order by transactiontime desc limit 5;";
         Statement stmt;
         stmt = conn.createStatement();
         ResultSet results = stmt.executeQuery(sql);
+        while (results.next()) {
+            LOGGER.info(results.getString("transactionID") + ", " +
+                    results.getString("accountID") + ", " +
+                    results.getString("otherAccountID") + ", " +
+                    results.getString("amount") + ", " +
+                    results.getString("depositType") + ", " +
+                    results.getString("transactiontime"));
+        }
 
 
+        
 
 
     }
