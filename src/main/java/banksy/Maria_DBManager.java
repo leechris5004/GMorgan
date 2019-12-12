@@ -151,6 +151,8 @@ public class Maria_DBManager implements DBManager {
 
     }
 
+
+
     public List<String> getUserInfo(int user) throws SQLException {
 
         PreparedStatement prepStmt;
@@ -249,6 +251,8 @@ public class Maria_DBManager implements DBManager {
         LOGGER.info("That user already exists.");
         }
     }
+
+
 
     //======================================================================================================================
     //Account Table Functions
@@ -373,6 +377,32 @@ public class Maria_DBManager implements DBManager {
         return userinfo;
     }
 
+    public int getAccount(int userID) throws SQLException {
+
+        if(!doesAccountExist(userID))
+        {
+            LOGGER.info("Account Does not exist, getAccount");
+            return 0;
+        }else {
+
+            PreparedStatement prepStmt;
+
+            String sql = "Select accounts.accountID from accounts where userID = ?";
+            prepStmt = conn.prepareStatement(sql);
+
+            prepStmt.setInt(1, userID);
+
+            ResultSet results = prepStmt.executeQuery();
+
+            results.next();
+            return results.getInt(1);
+        }
+    }
+
+    public int getAccount(String email) throws SQLException {
+        return getAccount(getUserID(email));
+    }
+
     public void assignAccount(String email, int accountID) throws SQLException {
         int userID = getUserID(email);
         assignAccount(userID,accountID);
@@ -466,6 +496,8 @@ public class Maria_DBManager implements DBManager {
         }
     }
 
+
+
     public boolean passwordCheck(String email, String password) throws SQLException {
         return passwordCheck(getUserID(email), password);
     }
@@ -523,5 +555,30 @@ public class Maria_DBManager implements DBManager {
         }//end try
         LOGGER.info("Goodbye!");
     }//end main
+
+    //======================================================================================================================
+    //Transaction Table Functions
+    public void getMostRecentTransactions() throws SQLException{
+        //(transactionID, accountID, otherAccountID, amount, depositType, transactiontime
+        //Gets 5 most recent transactions
+        String sql = "Select * from transactions order by transactiontime desc limit 5;";
+        Statement stmt;
+        stmt = conn.createStatement();
+        ResultSet results = stmt.executeQuery(sql);
+        while (results.next()) {
+            LOGGER.info(results.getString("transactionID") + ", " +
+                    results.getString("accountID") + ", " +
+                    results.getString("otherAccountID") + ", " +
+                    results.getString("amount") + ", " +
+                    results.getString("depositType") + ", " +
+                    results.getString("transactiontime"));
+        }
+
+
+        
+
+
+    }
+
 
 }
