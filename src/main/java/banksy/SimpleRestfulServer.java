@@ -36,7 +36,6 @@ public class SimpleRestfulServer {
 
     private void setUp(Dao<BankUser, String> userDao) {
         // http://localhost:4567/login
-
         post(new Route("/login") {
             @Override
             public Object handle(Request request, Response response) {
@@ -64,6 +63,33 @@ public class SimpleRestfulServer {
             }
         });
 
+        // http://localhost:4567/add
+        post(new Route("/add") {
+            @Override
+            public Object handle(Request request, Response response) {
+                logger.info("received post request /add");
+                String email = request.queryParams("email");
+                String amount = request.queryParams("amount");
+                String msg;
+                String success = "";
+                try {
+                    if (db.passwordCheck(email, password)) {
+                        msg = String.format("SUCCESS: Transaction successful for user=%s amount=%s", email, amount);
+                        success = "true";
+                    } else {
+                        msg = String.format("FAILURE: user=%s amount=%s was not found", email, amount);
+                        success = "false";
+                    }
+                    response.status(201);
+                    logger.info(msg);
+                } catch (SQLException e) {
+                    msg = String.format("FAILURE: Could not retrieve data from database");
+                    response.status(500);
+                    logger.error(msg, e);
+                }
+                return success;
+            }
+        });
 
         // http://localhost:4567/retrieveUser/1
 
