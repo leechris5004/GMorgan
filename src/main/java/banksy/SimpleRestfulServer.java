@@ -107,6 +107,28 @@ public class SimpleRestfulServer {
                 return success;
             }
         });
+
+        // http://localhost:4567/transactions
+        get(new Route("/transactions") {
+            @Override
+            public Object handle(Request request, Response response) {
+                logger.info("received get request /transactions");
+                String email = request.queryParams("email");
+                String msg;
+                String success = "";
+                /*try {
+                    //success = db.getUserRecentTransaction(email);
+                    msg = String.format("SUCCESS: Obtained transaction data from email=%s", email);
+                    response.status(201);
+                    logger.info(msg);
+                } catch (SQLException e) {
+                    msg = String.format("FAILURE: Could not retrieve transaction data from email=%s", email);
+                    response.status(500);
+                    logger.error(msg, e);
+                }*/
+                return success;
+            }
+        });
     }
 
     private void setUpDB() throws SQLException {
