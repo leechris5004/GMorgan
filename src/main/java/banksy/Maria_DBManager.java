@@ -674,5 +674,78 @@ public class Maria_DBManager implements DBManager {
 
 
 
+    public int getAccountWithEmail(String email) throws SQLException{
+        //Given email, return most recent transactions for this email
+
+        //(transactionID, accountID, otherAccountID, amount, depositType, transactiontime
+        //Gets 5 most recent transactions
+        //String sqlTwo = "Select * FROM accounts inner join users using(email)"
+        //String sql = "Select users.user_email, accounts.accountID from users join accounts on accounts.userID = users.userID where user_email = ?";
+        return getAccount(getUserID(email));
+
+
+
+
+    }//
+
+    public String getUserRecentTransactions(String email, int numOfTransactions) throws SQLException{
+        //Given email, return most recent transactions for this email
+
+        //(transactionID, accountID, otherAccountID, amount, depositType, transactiontime
+        //Gets 5 most recent transactions
+        //String sqlTwo = "Select * FROM accounts inner join users using(email)"
+        //tring sql = "Select users.user_email, accounts.accountID from users join accounts on accounts.userID = users.userID where user_email = ?";
+        int accountNum = getAccountWithEmail(email); //gets the accountNum
+
+        String sql = "Select transactions.transactionID, transactions.accountID, transactions.otherAccountID, transactions.amount, transactions.depositType, transactions.transactiontime from transactions join accounts on transactions.accountID = accounts.accountID where accounts.accountID = ? order by transactiontime desc limit ?;";
+
+
+        PreparedStatement  prepStmt;
+       // PreparedStatement  prepStmtTwo;
+
+
+        prepStmt = conn.prepareStatement(sql);
+        prepStmt.setInt(1,accountNum);
+        prepStmt.setInt(2,numOfTransactions);
+        ResultSet results = prepStmt.executeQuery();
+
+
+
+        //Statement stmt;
+
+        // stmt = conn.createStatement();
+        //ResultSet results = prepStmt.executeQuery(sql);
+        String transRecord = "";
+        //results.next();
+       // int accountNum = results.getInt(2);
+        while (results.next()) {
+
+            transRecord = transRecord + results.getString("transactionID") + ", " +
+                    results.getString("accountID") + ", " +
+                    results.getString("otherAccountID") + ", " +
+                    results.getString("amount") + ", " +
+                    results.getString("depositType") + ", " +
+                    results.getString("transactiontime") + "\n";
+
+
+            //Simply here to log string
+            LOGGER.info(results.getString("transactionID") + ", " +
+                    results.getString("accountID") + ", " +
+                    results.getString("otherAccountID") + ", " +
+                    results.getString("amount") + ", " +
+                    results.getString("depositType") + ", " +
+                    results.getString("transactiontime"));
+        }
+
+        return transRecord.trim();
+
+
+
+
+
+    }//getUserrEcent
+
+
+
 
 }
