@@ -1,23 +1,18 @@
 package banksy;
 
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.math.BigInteger;
-import java.io.InputStream;
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.logging.Logger;
 
 public class Maria_DBManager implements DBManager {
 
+    public static final Logger LOGGER = Logger.getLogger(Maria_DBManager.class.getName());
 	public Connection conn;
 
 	static final String JDBC_DRIVER = "org.mysql.jdbc.Driver";
@@ -38,7 +33,7 @@ public class Maria_DBManager implements DBManager {
     	try {
             if (conn != null) {
                 conn.close();
-                System.out.println("Connected Closed Successfully...");
+                LOGGER.info("Connected Closed Successfully...");
             }
         } catch (SQLException se) {
             se.printStackTrace();
@@ -54,10 +49,10 @@ public class Maria_DBManager implements DBManager {
 						Class.forName("com.mysql.jdbc.Driver");
 
 						//STEP 3: Open a connection
-						System.out.println("Connecting to a selected database...");
+                    LOGGER.info("Connecting to a selected database...");
 						conn = DriverManager.getConnection(
 										"jdbc:mysql://ec2-52-202-114-229.compute-1.amazonaws.com:3306/banksy", USER, PASS);
-						System.out.println("Connected database successfully...");
+                    LOGGER.info("Connected database successfully...");
 	} catch (SQLException se) {
         //Handle errors for JDBC
         se.printStackTrace();
@@ -90,7 +85,7 @@ public class Maria_DBManager implements DBManager {
     stmt = conn.createStatement();
     ResultSet results = stmt.executeQuery(sql);
         while (results.next()) {
-            System.out.println(results.getString("user_email") + ", " +
+            LOGGER.info(results.getString("user_email") + ", " +
                     results.getString("user_first") + ", " +
                     results.getString("user_last") + ", " +
                     results.getString("user_address") + ", " +
@@ -214,7 +209,7 @@ public class Maria_DBManager implements DBManager {
             prepStmt.executeUpdate();
         }
         catch(Exception e){
-            System.out.println("Error adding transaction.");
+            LOGGER.info("Error adding transaction.");
         }
     }
 
@@ -233,7 +228,7 @@ public class Maria_DBManager implements DBManager {
             changeFunds(second, amount);
         }
         catch(Exception e){
-            System.out.println("Error adding transaction.");
+            LOGGER.info("Error adding transaction.");
         }
     }
 
@@ -250,7 +245,7 @@ public class Maria_DBManager implements DBManager {
         prepStmt.executeUpdate();
     }
     catch(Exception e){
-        System.out.println("That user already exists.");
+        LOGGER.info("That user already exists.");
         }
     }
 
@@ -266,7 +261,7 @@ public class Maria_DBManager implements DBManager {
             prepStmt.executeUpdate();
         }
         catch(Exception e){
-            System.out.println("That account already exists.");
+            LOGGER.info("That account already exists.");
         }
     }
 
@@ -305,7 +300,7 @@ public class Maria_DBManager implements DBManager {
         stmt = conn.createStatement();
         ResultSet results = stmt.executeQuery(sql);
         while (results.next()) {
-            System.out.println(results.getString("accountType") + ", " +
+            LOGGER.info(results.getString("accountType") + ", " +
                     results.getString("amount"));
         }
     }
@@ -324,7 +319,7 @@ public class Maria_DBManager implements DBManager {
     public void assignAccount(int userID, int accountID) throws SQLException {
         PreparedStatement prepStmt;
         if (!doesUserExist(userID) || !doesAccountExist(accountID)){
-            System.out.println("This user does not exist. Not assigning account.");
+            LOGGER.info("This user does not exist. Not assigning account.");
         }else{
             String sql = "update accounts set userID = ? where accountID = ?";
 
@@ -386,7 +381,7 @@ public class Maria_DBManager implements DBManager {
     public void changeFunds(int account, int amount) throws SQLException {
         PreparedStatement prepStmt;
     if(!doesAccountExist(account)){
-        System.out.println("Account does not exist at " + account);
+        LOGGER.info("Account does not exist at " + account);
     }else{
         String sql = "update accounts set amount = amount + ? where AccountId = ?";
 
@@ -436,7 +431,7 @@ public class Maria_DBManager implements DBManager {
         String hashed = hashit(password);
         PreparedStatement prepStmt;
         if(!doesUserExist(user)){
-            System.out.println("User does not exist");
+            LOGGER.info("User does not exist");
         }else{
             String sql = "update users set user_password = ? where userId = ?";
             prepStmt = conn.prepareStatement(sql);
@@ -461,8 +456,6 @@ public class Maria_DBManager implements DBManager {
             ResultSet results = prepStmt.executeQuery();
             results.next();
             String storedpw = results.getString("user_password");
-            System.out.println(hashed);
-            System.out.println(storedpw);
             if(storedpw.trim().equals( hashed.trim())){
                 return true;
             }else{
@@ -486,13 +479,13 @@ public class Maria_DBManager implements DBManager {
             Class.forName("com.mysql.jdbc.Driver");
 
             //STEP 3: Open a connection
-            System.out.println("Connecting to a selected database...");
+            LOGGER.info("Connecting to a selected database...");
             conn = DriverManager.getConnection(
                     "jdbc:mysql://ec2-52-202-114-229.compute-1.amazonaws.com:3306/banksy", USER, PASS);
-            System.out.println("Connected database successfully...");
+            LOGGER.info("Connected database successfully...");
 
             //STEP 4: Execute a query
-            System.out.println("Creating table in given database...");
+            LOGGER.info("Creating table in given database...");
             stmt = conn.createStatement();
 
             String sql = "CREATE TABLE REGISTRATION "
@@ -503,7 +496,7 @@ public class Maria_DBManager implements DBManager {
                     + " PRIMARY KEY ( id ))";
 
             stmt.executeUpdate(sql);
-            System.out.println("Created table in given database...");
+            LOGGER.info("Created table in given database...");
         } catch (SQLException se) {
             //Handle errors for JDBC
             se.printStackTrace();
@@ -526,7 +519,7 @@ public class Maria_DBManager implements DBManager {
                 se.printStackTrace();
             }//end finally try
         }//end try
-        System.out.println("Goodbye!");
+        LOGGER.info("Goodbye!");
     }//end main
 
 }
