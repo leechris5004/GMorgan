@@ -32,6 +32,9 @@ public class Main {
 	{
 		banksyAccess.addTransaction(transaction.accountID, transaction.otherAccountID, transaction.amount, transaction.transactionType);
 	}
+
+	//Get's 5 most recent transactions
+	banksyAccess.getMostRecentTransactions();
 	
 	//banksyAccess.setPassword(14, "password");
 	//System.out.println(banksyAccess.realPasswordCheck(14,"password"));
