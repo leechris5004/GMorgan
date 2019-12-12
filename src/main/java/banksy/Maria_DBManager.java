@@ -151,6 +151,8 @@ public class Maria_DBManager implements DBManager {
 
     }
 
+
+
     public List<String> getUserInfo(int user) throws SQLException {
 
         PreparedStatement prepStmt;
@@ -373,6 +375,25 @@ public class Maria_DBManager implements DBManager {
         return userinfo;
     }
 
+    public int getAccount(int userID) throws SQLException {
+
+        PreparedStatement prepStmt;
+
+       String sql = "Select accounts.accountID from accounts where userID = ?";
+        prepStmt = conn.prepareStatement(sql);
+
+        prepStmt.setInt(1,userID);
+
+        ResultSet results = prepStmt.executeQuery();
+
+        results.next();
+        return results.getInt(1);
+    }
+
+    public int getAccount(String email) throws SQLException {
+        return getAccount(getUserID(email));
+    }
+
     public void assignAccount(String email, int accountID) throws SQLException {
         int userID = getUserID(email);
         assignAccount(userID,accountID);
@@ -465,6 +486,8 @@ public class Maria_DBManager implements DBManager {
             }
         }
     }
+
+
 
     public boolean passwordCheck(String email, String password) throws SQLException {
         return passwordCheck(getUserID(email), password);
