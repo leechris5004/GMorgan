@@ -6,9 +6,16 @@ $(document).ready(function() {
          tmp = params[i].split('=');
          data[tmp[0]] = decodeURIComponent(tmp[1]);
     }
-    for (var i = 0; i < 1; i++) {
-        $("#accounts").append("<tr><td></td><td></td><td></td></tr>");
-    }
+    $.get('http://localhost:4567/accounts', {email: data.email}).done(function(data) {
+        var list = data.split('\n').split(',');
+        for (var i = 0; i < data.length; i++) {
+            console.log(list[i]);
+            $("#accounts").append("<tr><td></td><td></td><td></td></tr>");
+        }
+    }).fail(function() {
+        console.log("Get request has failed");
+    });
+
 
     $(".container").on("click", "#deposit", function() {
         $(".container").empty().append('<label class="action"><b>Deposit</b></label>',
@@ -25,7 +32,7 @@ $(document).ready(function() {
     $(".container").on("click", "#acceptD", function() {
         var Email = $("#email").val();
         var Amount = $("#amount").val();
-        $.post('http://localhost:4567/add', {email: Email, amount: Amount, positive: "true"}).done(function(data) {
+        $.post('http://localhost:4567/add', {email: data.email, amount: Amount, positive: "true"}).done(function(data) {
             if (data == 'true') {
                 $('#error').text("Transaction Successful.");
             } else if (data == 'False') {
