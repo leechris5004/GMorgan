@@ -399,7 +399,6 @@ public class Maria_DBManager implements DBManager {
 
 
     public int getAccount(int userID) throws SQLException {
-getUserId
         if(!doesUserExist(userID))
         {
             LOGGER.info("Account Does not exist, getAccount");
