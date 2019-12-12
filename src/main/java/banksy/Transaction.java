@@ -68,6 +68,21 @@ public class Transaction {
         }
     }
 
+    public void changeFunds(int accountID, int otherAccountID, double amount, boolean willDeposit) throws SQLException {
+        Maria_DBManager accounts = new Maria_DBManager();
+
+        if(willDeposit == true){
+            // Need to get SQL record with Account ID 1 and Account ID 2 and need to modify amount
+            accounts.changeFunds(accountID, -1*amount);
+            accounts.changeFunds(otherAccountID, amount);
+        }
+        else{
+            // Same logic but funds are modified in reverse
+            accounts.changeFunds(accountID, amount);
+            accounts.changeFunds(otherAccountID, -1*amount);
+        }
+    }
+
     public int generateRandomAccountID(int bound)
     {
         int account = rand.nextInt(bound) + 1;
