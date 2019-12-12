@@ -534,6 +534,11 @@ public class Maria_DBManager implements DBManager {
         return Stringlist.stream().collect(Collectors.joining(","));
     }
 
+    public String getUserString(int userID) throws SQLException {
+        List<String> StringList = getUserInfo(userID);
+        return StringList.stream().collect(Collectors.joining(","));
+    }
+
     public String getAccountString(String email) throws SQLException {
        int account = getAccount(email);
        return (getAccountString(account));
