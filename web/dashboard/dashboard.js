@@ -13,9 +13,10 @@ $(document).ready(function() {
     function updateTransactions() {
         $.get('http://localhost:4567/transactions', {email: User.email}).done(function(data) {
             var list = data.split('\n');
+            $("#transactions").empty();
             for (var i = 0; i < list.length; i++) {
                 var temp = list[i].split(',');
-                $("#transactions").empty().append("<tr><td>"+temp[0]+"</td><td>"+temp[1]+"</td><td>"+temp[2]+"</td><td>"+temp[3]
+                $("#transactions").append("<tr><td>"+temp[0]+"</td><td>"+temp[1]+"</td><td>"+temp[2]+"</td><td>"+temp[3]
                     +"</td><td>"+temp[4]+"</td><td>"+temp[5]+"</td></tr>");
             }
         }).fail(function() {
