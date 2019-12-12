@@ -69,16 +69,17 @@ public class SimpleRestfulServer {
             public Object handle(Request request, Response response) {
                 logger.info("received post request /add");
                 String email = request.queryParams("email");
+                String account = request.queryParams("account");
                 String amount = request.queryParams("amount");
-                String password = request.queryParams("password");
+                String positive = request.queryParams("positive");
                 String msg;
                 String success = "";
                 try {
-                    if (db.passwordCheck(email, password)) {
-                        msg = String.format("SUCCESS: Transaction successful for user=%s amount=%s", email, amount);
+                    if (db.passwordCheck(email, "password")) {
+                        msg = String.format("SUCCESS: Transaction successful for user=%s account=%s amount=%s", email, account, amount);
                         success = "true";
                     } else {
-                        msg = String.format("FAILURE: user=%s amount=%s was not found", email, amount);
+                        msg = String.format("FAILURE: user=%s account=%s amount=%s was not found", email, account, amount);
                         success = "false";
                     }
                     response.status(201);
