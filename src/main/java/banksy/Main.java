@@ -25,6 +25,9 @@ public class Main {
 	//Get's 5 most recent transactions
 	banksyAccess.getMostRecentTransactions();
 	*/
+	String transactions = banksyAccess.getMostRecentTransactions(8);
+	System.out.print(transactions);
+
 	
 	//banksyAccess.setPassword(14, "password");
 	//System.out.println(banksyAccess.realPasswordCheck(14,"password"));
