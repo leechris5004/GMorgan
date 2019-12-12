@@ -23,6 +23,8 @@ public class Main {
 */
 	public static void main(String[] args) throws IOException, SQLException {
 	Maria_DBManager	banksyAccess = new Maria_DBManager();
+
+	/**
 	//System.out.println(banksyAccess.getUserInfo(15));
 	for(int i = 1; i < banksyAccess.countAccounts(); i++)
 		System.out.println(banksyAccess.getAccountInfo(i));
@@ -35,6 +37,7 @@ public class Main {
 
 	//Get's 5 most recent transactions
 	banksyAccess.getMostRecentTransactions();
+	*/
 	
 	//banksyAccess.setPassword(14, "password");
 	//System.out.println(banksyAccess.realPasswordCheck(14,"password"));

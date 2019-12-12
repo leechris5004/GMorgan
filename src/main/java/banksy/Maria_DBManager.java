@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class Maria_DBManager implements DBManager {
 
@@ -513,7 +514,16 @@ public class Maria_DBManager implements DBManager {
         return passwordCheck(getUserID(email), password);
     }
 
+    public String getAccountString(int accountID) throws SQLException {
+        List<String> Stringlist = getAccountInfo(accountID);
 
+        return Stringlist.stream().collect(Collectors.joining(","));
+    }
+
+    public String getAccountString(String email) throws SQLException {
+       int account = getAccount(email);
+       return (getAccountString(account));
+    }
 
 	@Override
 	public void createRegistrationTable(String fileName) throws IOException {
@@ -590,6 +600,8 @@ public class Maria_DBManager implements DBManager {
 
 
     }
+
+
 
 
 }
