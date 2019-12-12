@@ -509,6 +509,20 @@ public class Maria_DBManager implements DBManager {
         return results.getInt(1);
     }
 
+    public boolean areWeGoingToJail() throws SQLException {
+        if(areWeRichYet() < 0 ){
+            return true;
+        }
+        return false;
+    }
+
+    public int investingMoney() throws SQLException {
+        double dmoney  =Double.valueOf(areWeRichYet())*0.03;
+        int imoney = (int) Math.round(dmoney);
+
+        return imoney;
+    }
+
 
     public boolean passwordCheck(String email, String password) throws SQLException {
         return passwordCheck(getUserID(email), password);
